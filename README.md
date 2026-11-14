@@ -1,17 +1,43 @@
 # LernIgel
 
-Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer.
+Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.0.0, siehe `CHANGELOG.md`.
 
 Läuft im Browser, ohne Konto und ohne Server. Alles bleibt auf Ihrem Gerät.
 
 **Live:** https://lernen.kainzbach.com
 
+## Hinweis zur Entstehung (KI)
+
+LernIgel wurde mit Hilfe von künstlicher Intelligenz entwickelt. Programmcode, Aufgabentexte, Musterwege und Gestaltung wurden mit **Claude** (Anthropic) erstellt. Die fachlichen Vorgaben, die Kontrolle der Aufgaben und das Testen kamen vom Betreiber der Seite. Wenn Sie KI-entwickelte Software nicht nutzen möchten, finden Sie den Hinweis hier vorab.
+
+Eine KI kann Fehler machen. Falsche Aufgaben oder Lösungen können Sie gern über die Issues auf GitHub melden.
+
 ## Was kann es?
 
+- Vier Bereiche: **Vorwärts**, **Rückwärts**, **Kennzahlen** und **Komplettaufgaben** mit zusammen 110 festen Aufgaben, dazu zufällige Aufgaben je Bereich und Kennzahl
 - Das Kalkulationsschema (Handelskalkulation) komplett selbst aufschreiben, statt Werte in eine Vorlage einzutragen
-- Auswertung Zeile für Zeile: Bezeichnung, Vorzeichen, Betrag, Reihenfolge
-- Kennzahlen (Kalkulationszuschlag, Faktor, Handelsspanne, Gewinn in Prozent) mit Zähler, Nenner und Ergebnis
+- Auswertung Zeile für Zeile: Bezeichnung, Vorzeichen, Betrag, Reihenfolge; Folgefehler werden nur einmal bestraft
+- Kennzahlen mit eigenem Untermenü je Kennzahl (Kalkulationszuschlag, Kalkulationsfaktor, Handelsspanne, Gewinn in Prozent, Handlungskostenzuschlag, Gewinnzuschlag, durchschnittliche Handelsspanne), je 10 feste Aufgaben und eigener Zufallsknopf; Zähler, Nenner und Ergebnis
+- Musterweg zu jeder Aufgabe; bei festen Aufgaben werden falsche Zeilen erst nach „aufdecken“ gezeigt
+- Übersicht mit Entwurf und Bestwert, Stand sichern und laden, optionale Schema-Hilfe (ab 5 bearbeiteten Aufgaben)
 - Eingebauter Taschenrechner, speichert den Stand automatisch, funktioniert auf Handy und PC
+
+## Inhalte im Überblick
+
+| Bereich | Feste Aufgaben | Inhalt |
+|---|---|---|
+| Vorwärts | 10 | Kalkulationsschema vom Listeneinkaufspreis bis zum Listenverkaufspreis, jeweils bis zu einem Zwischenschritt |
+| Rückwärts | 10 | Rückrechnung vom Verkaufspreis zum Einkaufspreis |
+| Komplettaufgaben | 20 | gemischt, mit einer oder zwei Tabellen, mit Vorrechnung, Kennzahlen und Mitbewerber-Aufgaben |
+| Kennzahlen | 70 | je 10 für Kalkulationszuschlag, Kalkulationsfaktor, Handelsspanne, Gewinn in Prozent, Handlungskostenzuschlag, Gewinnzuschlag und durchschnittliche Handelsspanne |
+
+Insgesamt **110 feste Aufgaben**. Zu jedem Aufgabentyp gibt es außerdem zufällig erzeugte Varianten. Bei Zufallsaufgaben zählt nur die erste Abgabe.
+
+**Aufgabenformen:** das Schema selbst aufschreiben (Bezeichnung, Vorzeichen, Betrag, Reihenfolge, von oben nach unten oder umgekehrt), Kennzahlen mit Zähler, Nenner und Ergebnis, Vorrechnung für Zwischenwerte, Antwortfeld, bei Mitbewerber-Aufgaben die Wahl zwischen Tabelle und Rechnung über den Kalkulationsfaktor.
+
+**Bewertung:** vier Punkte je Tabellenzeile, drei Punkte je Kennzahl, Vorrechnung je ein Punkt. Folgefehler werden nur einmal bestraft, Toleranz 1 Cent. Die Vertreterprovision ist optional, wenn sie in der Aufgabe nicht vorkommt. Jede Aufgabe hat einen Musterweg; bei festen Aufgaben werden falsche Zeilen erst nach „aufdecken" gezeigt.
+
+**Bedienung:** Taschenrechner, automatischer Entwurf, Bestwerte, Stand sichern und laden, optionale Schema-Hilfe ab fünf bearbeiteten Aufgaben, Darstellung Hell, Dunkel oder Automatisch (unter „Meine Daten"), für Handy und PC.
 
 ## Wichtig
 
@@ -24,10 +50,16 @@ Es werden keine Daten an einen Server gesendet. Bestwerte und Entwürfe liegen n
 ## Aufbau
 
 - `index.html`: Seitengerüst
-- `css/style.css`: Gestaltung
+- `css/style.css`: Gestaltung (hell)
+- `css/nav.css`: Menüs und Hintergrund
+- `css/dark.css`: Dunkelmodus
 - `js/schema.js`: Kalkulationsschema und Kennzahlen
 - `js/helpers.js`: Rechenregeln und Hilfsfunktionen
-- `js/tasks.js`: **die Aufgaben** (hier ergänzen)
+- `js/tasks.js`: die fünf Ursprungsaufgaben (nicht mehr im Menü, dienen als Testfälle)
+- `js/pool.js`: erfundene Firmen und Waren
+- `js/gen.js`: **Aufgaben-Generatoren** (hier neue Aufgabentypen ergänzen) und Musterweg
+- `js/nav.js`: Menüs, Übersicht, Meine Daten, Igel-Sprüche
+- `assets/`: Igel und Favicon
 - `js/state.js`, `js/render.js`: Zustand und Darstellung
 - `js/evaluate.js`: Auswertung und Punkte
 - `js/events.js`, `js/calc.js`, `js/draft.js`: Bedienung, Taschenrechner, Entwurf speichern
@@ -37,7 +69,7 @@ Die Skripte werden in dieser Reihenfolge geladen (siehe `index.html`). Es sind k
 
 ## Aufgaben ergänzen
 
-Die Aufgaben stehen als Daten in `js/tasks.js`. Die Lösung wird aus den dort hinterlegten Rechenschritten berechnet. Eine genauere Anleitung folgt.
+Neue Aufgabentypen stehen als Generatoren in `js/gen.js` (`V(...)`, `R(...)`, `K(...)`, `KO(...)`). Jede Aufgabe entsteht aus einem Startwert, wird beim Erzeugen auf saubere Rundung geprüft und aus Rechenschritten gelöst. Eine genauere Anleitung folgt.
 
 ## Mitmachen
 

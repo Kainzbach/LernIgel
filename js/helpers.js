@@ -1,9 +1,12 @@
 /* =====================================================================
    Hilfsfunktionen
    ===================================================================== */
-const TOL = 0.02; // erlaubte Abweichung in Euro (überall)
+const TOL = 0.01; // erlaubte Abweichung in Euro (überall)
 // Alte, nicht mehr ganz richtige Bezeichnungen: zählen, geben aber gelb und 1 Punkt Abzug
 const WEAK = { 'Handlungskosten': 'HK', 'HK': 'HK', 'Gewinn': 'G', 'G': 'G' };
+// Diese Schreibweisen zählen voll (Namenspunkt), die Kürzel HK und G bleiben schwach
+const WEAK_FULL = { 'Handlungskosten': 1, 'Gewinn': 1 };
+const VERSION = '1.0.0';
 const STORE_KEY = 'ksk-lernapp-best';
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -66,6 +69,13 @@ function normTask(t) {
 function rangeKeys(task) {
   return ORDER.slice(ORDER.indexOf(task.from), ORDER.indexOf(task.to) + 1).filter(k => !(task.skip || []).includes(k));
 }
+function rangeKeysFor(task, p) {
+  const f = p.from || task.from, t = p.to || task.to;
+  return ORDER.slice(ORDER.indexOf(f), ORDER.indexOf(t) + 1).filter(k => !(task.skip || []).includes(k));
+}
+// Schlüssel der Zeilen eines Tabellenteils (bei einer zweiten Rechenkette mit Anhang)
+function partKeys(task, p) { return rangeKeysFor(task, p).map(k => k + (p.sfx || '')); }
+const pctOf = (task, k) => task.pct[k] || task.pct[baseKey(k)] || [];
 function placement(nums, variant) {
   const out = [null, null];
   nums.forEach(([v, base, role]) => {

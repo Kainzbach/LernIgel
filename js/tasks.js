@@ -81,7 +81,7 @@ function einkaufRueck(c) {
 }
 
 /* Name des Unternehmens in allen Aufgaben: hier zentral ändern */
-const FIRMA = 'Kainzbach & Co. KG';
+const FIRMA = 'Kainzbach GmbH & Co. KG';
 
 const C1 = { lep: 800, lr: 10, ls: 2, bzk: 40, hk: 30, g: 10, ks: 2, vp: 4, kr: 12 };
 const C2 = { lr: 12, ls: 2, bzk: 30, hk: 25, g: 8, ks: 2, vp: 3, kr: 10 };

@@ -21,6 +21,7 @@
 
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
   .task { font-size: 1.02rem; margin: 0; white-space: pre-line; line-height: 1.55; }
+  .tnote { display: block; font-size: .88rem; color: #587084; margin: 3px 0 0 1.4em; line-height: 1.45; }
   .task-hint { font-size: .8rem; color: var(--muted); margin-top: 12px; }
   .task-hint:empty { display: none; }
   .konto { margin: 12px 0; font-size: .86rem; white-space: normal; container-type: inline-size; }
@@ -28,7 +29,7 @@
   .konto-wide { font-size: .84rem; }
   .konto-wide th { border-bottom: 2px solid var(--ink); padding: 4px 6px; text-align: left; }
   .konto-wide td { padding: 4px 6px; vertical-align: top; }
-  .konto-wide td.lb { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .konto-wide td.lb { white-space: normal; overflow-wrap: anywhere; }
   .konto-wide td.n { padding-right: 12px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .konto-wide .hv { border-left: 2px solid var(--ink); }
   .konto-wide tr.sum td { border-top: 1px solid var(--ink); border-bottom: 3px double var(--ink); font-weight: 600; }
@@ -169,11 +170,11 @@
 
   /* Computer: Aufgabentext links fest, Tabelle rechts */
   @media (min-width: 1000px) {
-    main { max-width: 1600px; display: grid; grid-template-columns: clamp(330px, 28vw, 480px) minmax(0, 1fr); column-gap: 18px; align-items: start; }
+    main { max-width: 1600px; display: grid; grid-template-columns: clamp(400px, 36vw, 560px) minmax(0, 1fr); column-gap: 18px; align-items: start; }
     /* Regel: Enthält die Aufgabe eine Tabelle (z. B. Konto), wird die Aufgabenkarte breiter */
     main:has(.konto), main:has(.datatab) { grid-template-columns: 600px minmax(0, 1fr); }
     main > .tabs { grid-column: 1 / -1; grid-row: 1; }
-    main > .task-card { grid-column: 1; grid-row: 2 / span 30; position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; }
+    main > .task-card { grid-column: 1; grid-row: 1 / span 30; position: sticky; top: 12px; max-height: calc(100vh - 198px); overflow: auto; }
     main > :not(.tabs):not(.task-card) { grid-column: 2; }
   }
 
@@ -230,3 +231,38 @@
     header .calc-toggle { flex: 0 0 auto; padding: 6px 10px; font-size: .82rem; }
   }
   @media (max-width: 560px) { .kz .sent .lbl { white-space: normal; } }
+  #nr-text { width: 100%; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; resize: vertical; min-height: 90px; background: #fff; color: var(--ink); }
+  .nr-hint { margin: 8px 0 0; font-size: .8rem; }
+  .nr-err { margin: 8px 0 0; color: var(--bad); font-weight: 600; }
+  table.way td:first-child { width: 34%; vertical-align: top; }
+  .partbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+  .partbar .pb { font: inherit; display: flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); cursor: pointer; font-size: .9rem; text-align: left; }
+  .partbar .pb b { color: var(--accent); }
+  .partbar .pb span { color: var(--muted); font-size: .8rem; }
+  .partbar .pb.filled { border-color: #9ccbb0; background: #f2faf5; }
+  .partbar .pb.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  @media (max-width: 560px) { .partbar .pb span { display: none; } .partbar .pb { padding: 8px 16px; } }
+  .vr { margin: 10px 0; } .vr label { display: block; font-weight: 600; margin-bottom: 4px; } .vr small { font-weight: 400; color: var(--muted); }
+  .vr-in { display: flex; align-items: center; gap: 10px; } .vr-in input { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; width: 160px; }
+  .vr .live { font-variant-numeric: tabular-nums; color: var(--muted); }
+  .reveal { font: inherit; font-size: .8rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--accent); background: #fff; color: var(--accent); cursor: pointer; margin-left: 6px; }
+  .reveal:hover { background: var(--accent); color: #fff; }
+  .hidenote, .lock-note { font-size: .85rem; color: var(--muted); margin: 0 0 10px; }
+  .lock-note { margin: 0 0 14px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; color: var(--ink); }
+  /* Vorrechnung in der Karte des ersten Teils */
+  .vr-box { padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .vr-h { margin: 0 0 6px; font-size: .98rem; }
+  #parts > .card { margin-bottom: 14px; }
+  /* Teilaufgaben mit hängendem Einzug: a) links, Text und graue Hinweise in einer Spalte */
+  .tpart { display: grid; grid-template-columns: 1.7em minmax(0, 1fr); margin: 10px 0 0; }
+  .tpart .tl { font-weight: 600; }
+  .tpart .tnote { margin-left: 0; }
+  .tpart + .tpart { margin-top: 12px; }
+  .tpart:first-child { margin-top: 0; }
+  .altsw { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+  .alt-b { font: inherit; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink); cursor: pointer; }
+  .alt-b.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; font-weight: 600; }
+  .alt-kw[hidden], .alt-tab[hidden] { display: none; }
+  .kwbox .nr-hint { margin: 0 0 8px; }
+  .kz.kwbox { border-top: 0; padding-top: 0; }
+  .kz.ansbox { border-top: 1px solid var(--line); margin-top: 14px; padding-bottom: 0; }

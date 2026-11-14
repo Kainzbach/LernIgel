@@ -6,6 +6,7 @@ html = html.replace(/<link rel="stylesheet" href="([^"]+)">/g, (_, f) => '<style
 let scripts = [];
 html = html.replace(/<script src="([^"]+)"><\/script>\n?/g, (_, f) => { scripts.push(fs.readFileSync(f, 'utf8')); return ''; });
 html = html.replace('</body>', '<script>\n' + scripts.join('\n') + '</script>\n</body>');
+html = html.replace('assets/favicon.svg', 'data:image/svg+xml;base64,' + fs.readFileSync('assets/favicon.svg').toString('base64'));
 html = html.replace(/<meta name="robots"[^>]*>\n?/, '');
 fs.mkdirSync('dist', { recursive: true });
 fs.writeFileSync(path.join('dist', 'lernigel-einzeldatei.html'), html);
