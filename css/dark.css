@@ -136,13 +136,16 @@ html[data-theme='dark'] .legend-h {
 }
 html[data-theme='dark'] .menu .linkbtn,
 html[data-theme='dark'] .md-btn {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(27, 32, 40, 0.7);
   color: #e6f0f5;
   border-color: rgba(255, 255, 255, 0.2);
 }
 html[data-theme='dark'] .menu .linkbtn:hover,
 html[data-theme='dark'] .md-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: #1b2028;
+}
+html[data-theme='dark'] .md-btn {
+  background: rgba(27, 32, 40, 0.8);
 }
 html[data-theme='dark'] .igel-menu .bubble {
   background: #1b2028;
@@ -202,7 +205,7 @@ html[data-theme='dark'] .tasklist .st.draft {
   color: #8fbfff;
 }
 html[data-theme='dark'] .chip {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(27, 32, 40, 0.85);
   color: #e6f0f5;
 }
 html[data-theme='dark'] .chip.ok {
@@ -219,7 +222,7 @@ html[data-theme='dark'] .chip.pc {
 }
 /* Meine Daten */
 html[data-theme='dark'] .setbox {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(27, 32, 40, 0.78);
 }
 html[data-theme='dark'] .setbox label {
   color: #58c8e8;

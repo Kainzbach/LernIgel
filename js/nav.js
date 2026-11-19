@@ -122,9 +122,8 @@ function showData() {
   showMenu(
     `${backHash ? backLink(backHash, 'Zurück') : backLink('#/', 'Start')}<h2>Meine Daten</h2><p class="sub" style="margin:0;max-width:520px">Ihr Stand liegt nur in diesem Browser auf Ihrem Gerät. Sichern Sie ihn als Datei, um ihn auf einem anderen Gerät zu laden oder nach dem Löschen der Browserdaten wiederherzustellen.</p>
     <div class="databox"><button class="rand" id="btn-export">Stand sichern</button><label class="linkbtn" for="file-import">Stand laden …</label><input type="file" id="file-import" accept="application/json,.json" hidden></div>
-    <div class="setbox"><label for="sel-theme">Darstellung</label> <select id="sel-theme"><option value="auto">Automatisch (wie Ihr Gerät)</option><option value="light">Hell</option><option value="dark">Dunkel</option></select>
-    
-    <label><input type="checkbox" id="chk-help" ${settings.help ? 'checked' : ''} ${helpAvailable() ? '' : 'disabled'}> Schema-Hilfe in den Aufgaben anbieten</label>
+    <div class="setbox"><div class="setrow"><label for="sel-theme">Darstellung</label> <select id="sel-theme"><option value="auto">Automatisch (wie Ihr Gerät)</option><option value="light">Hell</option><option value="dark">Dunkel</option></select></div>
+    <div class="setrow setgap"><label><input type="checkbox" id="chk-help" ${settings.help ? 'checked' : ''} ${helpAvailable() ? '' : 'disabled'}> Schema-Hilfe in den Aufgaben anbieten</label></div>
     <p class="sub" style="margin:4px 0 0;font-size:.85rem">${helpAvailable() ? 'Dann erscheint in jeder Tabelle der Knopf „Schema ausfüllen“. Er trägt die Bezeichnungen ein, Vorzeichen und Beträge rechnen Sie selbst.' : 'Wird nach ' + HELP_MIN + ' bearbeiteten Aufgaben freigeschaltet. Bisher: ' + doneCount() + '.'}</p></div>
     <p class="datamsg" id="data-msg">${saveHint() ? 'Ihr Stand ist noch nicht gesichert.' : ''}</p>
     <p class="sub" style="margin:0;font-size:.85rem">Laden ersetzt den Stand auf diesem Gerät.</p><p class="sub" style="margin:0;font-size:.8rem">LernIgel Version ${VERSION}</p>`,

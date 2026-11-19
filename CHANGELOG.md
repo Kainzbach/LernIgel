@@ -1,5 +1,12 @@
 # Änderungen
 
+## 1.0.2 (2026-11-19)
+
+Nur Aussehen, keine Änderung an Aufgaben oder Wertung.
+
+- „Meine Daten“: „Darstellung“ und „Schema-Hilfe“ stehen in getrennten Zeilen mit Abstand
+- Dunkelmodus: Karte „Meine Daten“, Menüknöpfe, Knopf „Meine Daten“ und Kennzahl-Chips sind jetzt so deckend wie im hellen Modus (vorher fast durchsichtig, der Hintergrund schien durch den Text)
+
 ## 1.0.1 (2026-11-19)
 
 Nur Aufräumen, keine Änderung am Verhalten der Seite.
