@@ -1,6 +1,6 @@
 # LernIgel
 
-Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.0.0, siehe `CHANGELOG.md`.
+Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.0.1, siehe `CHANGELOG.md`.
 
 Läuft im Browser, ohne Konto und ohne Server. Alles bleibt auf Ihrem Gerät.
 
@@ -57,7 +57,13 @@ Es werden keine Daten an einen Server gesendet. Bestwerte und Entwürfe liegen n
 - `js/helpers.js`: Rechenregeln und Hilfsfunktionen
 - `js/tasks.js`: die fünf Ursprungsaufgaben (nicht mehr im Menü, dienen als Testfälle)
 - `js/pool.js`: erfundene Firmen und Waren
-- `js/gen.js`: **Aufgaben-Generatoren** (hier neue Aufgabentypen ergänzen) und Musterweg
+- **Aufgaben-Generatoren** (hier neue Aufgabentypen ergänzen), nach Themen getrennt:
+  - `js/gen_basis.js`: Zufall, Textbausteine, Typlisten
+  - `js/gen_vorwaerts.js`, `js/gen_rueckwaerts.js`: Vorwärts- und Rückwärtsaufgaben
+  - `js/gen_kz.js` (Rahmen) mit `gen_kz_a.js`, `gen_kz_diff.js`, `gen_kz_b.js`, `gen_kz_c.js`, `gen_kz_d.js`, `gen_kz_e.js`: die sieben Kennzahlen-Bereiche
+  - `js/gen_komplett_basis.js`, `gen_komplett_ab.js`, `gen_komplett_cd.js`, `gen_komplett_f.js`: Komplettaufgaben
+  - `js/gen_musterweg.js`: Rechenweg unter der Lösung
+  - `js/gen_bau.js`: Aufgabe bauen, prüfen, feste und zufällige Aufgaben
 - `js/nav.js`: Menüs, Übersicht, Meine Daten, Igel-Sprüche
 - `assets/`: Igel und Favicon
 - `js/state.js`, `js/render.js`: Zustand und Darstellung
@@ -69,7 +75,7 @@ Die Skripte werden in dieser Reihenfolge geladen (siehe `index.html`). Es sind k
 
 ## Aufgaben ergänzen
 
-Neue Aufgabentypen stehen als Generatoren in `js/gen.js` (`V(...)`, `R(...)`, `K(...)`, `KO(...)`). Jede Aufgabe entsteht aus einem Startwert, wird beim Erzeugen auf saubere Rundung geprüft und aus Rechenschritten gelöst. Eine genauere Anleitung folgt.
+Neue Aufgabentypen stehen als Generatoren in den `js/gen_*.js`-Dateien (`V(...)`, `R(...)`, `K(...)`, `KO(...)`). Jede Aufgabe entsteht aus einem Startwert, wird beim Erzeugen auf saubere Rundung geprüft und aus Rechenschritten gelöst. Eine genauere Anleitung folgt.
 
 ## Mitmachen
 

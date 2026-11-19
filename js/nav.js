@@ -4,8 +4,19 @@
 const AREAS = [
   { id: 'vorwaerts', name: 'Vorwärts', icon: 'arrowR', tasks: FIXED.vorwaerts },
   { id: 'rueckwaerts', name: 'Rückwärts', icon: 'arrowL', tasks: FIXED.rueckwaerts },
-  { id: 'kennzahlen', name: 'Kennzahlen', icon: 'pct', tasks: [].concat(...KZ_AREAS.map(a => FIXED[a.id])),
-    children: KZ_AREAS.map(a => ({ id: a.id, name: a.name, icon: 'pct', tasks: FIXED[a.id], parent: 'kennzahlen' })) },
+  {
+    id: 'kennzahlen',
+    name: 'Kennzahlen',
+    icon: 'pct',
+    tasks: [].concat(...KZ_AREAS.map(a => FIXED[a.id])),
+    children: KZ_AREAS.map(a => ({
+      id: a.id,
+      name: a.name,
+      icon: 'pct',
+      tasks: FIXED[a.id],
+      parent: 'kennzahlen'
+    }))
+  },
   { id: 'komplett', name: 'Komplettaufgaben', icon: 'layers', tasks: FIXED.komplett }
 ];
 const ICONS = {
@@ -18,106 +29,203 @@ const ICONS = {
   dots: '<circle cx="6" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="18" cy="12" r="1.3"/>',
   coin: '<circle cx="12" cy="12" r="8"/><path d="M9 10.5c0-1.2 1.3-2 3-2s3 .8 3 2-1.3 1.8-3 2-3 .8-3 2 1.3 2 3 2 3-.8 3-2"/>'
 };
-const tileHtml = (o) => {
+const tileHtml = o => {
   const tag = o.href ? 'a' : 'div';
-  return `<${tag} class="tile${o.soon ? ' soon' : ''}"${o.href ? ` href="${o.href}"` : ' aria-disabled="true"'}>` +
+  return (
+    `<${tag} class="tile${o.soon ? ' soon' : ''}"${o.href ? ` href="${o.href}"` : ' aria-disabled="true"'}>` +
     `<span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[o.icon]}</svg></span>` +
-    `<span class="label${o.small ? ' sm' : ''}">${o.label}</span>${o.tag ? `<span class="tag">${o.tag}</span>` : ''}</${tag}>`;
+    `<span class="label${o.small ? ' sm' : ''}">${o.label}</span>${o.tag ? `<span class="tag">${o.tag}</span>` : ''}</${tag}>`
+  );
 };
 // Jede Kopie des Igels bekommt eigene IDs, sonst verweisen Stacheln/Zuschnitt auf eine ausgeblendete Kopie
 let igelUid = 0;
-const uniqIds = svg => { const k = ++igelUid; return svg.replace(/id="(spine|back|bellyclip)"/g, 'id="$1-' + k + '"').replace(/url\(#(spine|back|bellyclip)\)/g, 'url(#$1-' + k + ')'); };
+const uniqIds = svg => {
+  const k = ++igelUid;
+  return svg
+    .replace(/id="(spine|back|bellyclip)"/g, 'id="$1-' + k + '"')
+    .replace(/url\(#(spine|back|bellyclip)\)/g, 'url(#$1-' + k + ')');
+};
 const wordmark = () => uniqIds(document.getElementById('tpl-wm').innerHTML);
-const areaOf = id => AREAS.find(a => a.id === id) || [].concat(...AREAS.map(a => a.children || [])).find(a => a.id === id);
+const areaOf = id =>
+  AREAS.find(a => a.id === id) || [].concat(...AREAS.map(a => a.children || [])).find(a => a.id === id);
 const taskIndex = id => ensureTask(id);
 
 function showMenu(html, small) {
   document.body.className = 'is-menu';
-  $('v-task').hidden = true; $('v-menu').hidden = false;
+  $('v-task').hidden = true;
+  $('v-menu').hidden = false;
   $('menu').className = 'menu' + (small ? ' small' : '');
   const ig = igelMenuHtml();
-  $('menu').innerHTML = html.includes('</h2>') ? html.replace('</h2>', '</h2>' + ig) : html.includes('<div class="tiles">') ? html.replace('<div class="tiles">', ig + '<div class="tiles">') : html + ig;
-  const md = $('md-btn'); if (md) md.hidden = /^#\/daten/.test(location.hash);
+  $('menu').innerHTML = html.includes('</h2>')
+    ? html.replace('</h2>', '</h2>' + ig)
+    : html.includes('<div class="tiles">')
+      ? html.replace('<div class="tiles">', ig + '<div class="tiles">')
+      : html + ig;
+  const md = $('md-btn');
+  if (md) md.hidden = /^#\/daten/.test(location.hash);
   window.scrollTo(0, 0);
 }
 // Igel auf den Menüseiten mit passendem Spruch
 const SP_MENU = {
   start: ['Willkommen! Wollen wir üben?', 'Schön, dass Sie da sind.'],
-  fach: ['Auf geht\'s zum Üben!', 'Gleich geht es los.'],
+  fach: ["Auf geht's zum Üben!", 'Gleich geht es los.'],
   bereich: ['Was üben wir heute?', 'Suchen Sie sich einen Bereich aus.'],
   liste: ['Welche Aufgabe nehmen wir?', 'Suchen Sie sich eine Aufgabe aus.'],
   daten: ['Hier liegt Ihr Stand sicher.']
 };
 function igelMenuHtml() {
   const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
-  const k = p[0] === 'daten' ? 'daten' : !p.length ? 'start' : p.length === 1 ? 'fach' : p.length === 2 ? 'bereich' : 'liste';
-  const pool = SP_MENU[k]; const say = pool[Math.floor(Math.random() * pool.length)];
+  const k =
+    p[0] === 'daten'
+      ? 'daten'
+      : !p.length
+        ? 'start'
+        : p.length === 1
+          ? 'fach'
+          : p.length === 2
+            ? 'bereich'
+            : 'liste';
+  const pool = SP_MENU[k];
+  const say = pool[Math.floor(Math.random() * pool.length)];
   return `<div class="igel-menu" aria-hidden="true"><span class="mini">${uniqIds(document.getElementById('tpl-wm').content.querySelector('svg').outerHTML)}</span><span class="bubble">${esc(say)}</span></div>`;
 }
 (function () {
-  const a = document.createElement('a'); a.id = 'md-btn'; a.href = '#/daten'; a.className = 'md-btn'; a.hidden = true;
-  a.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><span class="md-t">Meine Daten</span>';
+  const a = document.createElement('a');
+  a.id = 'md-btn';
+  a.href = '#/daten';
+  a.className = 'md-btn';
+  a.hidden = true;
+  a.innerHTML =
+    '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg><span class="md-t">Meine Daten</span>';
   a.setAttribute('aria-label', 'Meine Daten');
   $('v-menu').appendChild(a);
 })();
 function showTask() {
   document.body.className = 'is-task';
-  $('v-menu').hidden = true; $('v-task').hidden = false;
+  $('v-menu').hidden = true;
+  $('v-task').hidden = false;
   window.scrollTo(0, 0);
 }
-function fitChips() { document.querySelectorAll('.chips').forEach(c => { c.classList.remove('compact'); if (c.scrollWidth > c.clientWidth + 1) c.classList.add('compact'); }); }
+function fitChips() {
+  document.querySelectorAll('.chips').forEach(c => {
+    c.classList.remove('compact');
+    if (c.scrollWidth > c.clientWidth + 1) c.classList.add('compact');
+  });
+}
 window.addEventListener('resize', fitChips);
 const hasProgress = () => Object.keys(best).length > 0 || Object.keys(rowsByTask).length > 0;
-const saveHint = () => (prog.dirty && hasProgress()) ? '<p class="savehint">Ihr Stand ist noch nicht gesichert. <a href="#/daten">Jetzt sichern</a></p>' : '';
+const saveHint = () =>
+  prog.dirty && hasProgress()
+    ? '<p class="savehint">Ihr Stand ist noch nicht gesichert. <a href="#/daten">Jetzt sichern</a></p>'
+    : '';
 function showData() {
-  showMenu(`${backHash ? backLink(backHash, 'Zurück') : backLink('#/', 'Start')}<h2>Meine Daten</h2><p class="sub" style="margin:0;max-width:520px">Ihr Stand liegt nur in diesem Browser auf Ihrem Gerät. Sichern Sie ihn als Datei, um ihn auf einem anderen Gerät zu laden oder nach dem Löschen der Browserdaten wiederherzustellen.</p>
+  showMenu(
+    `${backHash ? backLink(backHash, 'Zurück') : backLink('#/', 'Start')}<h2>Meine Daten</h2><p class="sub" style="margin:0;max-width:520px">Ihr Stand liegt nur in diesem Browser auf Ihrem Gerät. Sichern Sie ihn als Datei, um ihn auf einem anderen Gerät zu laden oder nach dem Löschen der Browserdaten wiederherzustellen.</p>
     <div class="databox"><button class="rand" id="btn-export">Stand sichern</button><label class="linkbtn" for="file-import">Stand laden …</label><input type="file" id="file-import" accept="application/json,.json" hidden></div>
     <div class="setbox"><label for="sel-theme">Darstellung</label> <select id="sel-theme"><option value="auto">Automatisch (wie Ihr Gerät)</option><option value="light">Hell</option><option value="dark">Dunkel</option></select>
     
     <label><input type="checkbox" id="chk-help" ${settings.help ? 'checked' : ''} ${helpAvailable() ? '' : 'disabled'}> Schema-Hilfe in den Aufgaben anbieten</label>
     <p class="sub" style="margin:4px 0 0;font-size:.85rem">${helpAvailable() ? 'Dann erscheint in jeder Tabelle der Knopf „Schema ausfüllen“. Er trägt die Bezeichnungen ein, Vorzeichen und Beträge rechnen Sie selbst.' : 'Wird nach ' + HELP_MIN + ' bearbeiteten Aufgaben freigeschaltet. Bisher: ' + doneCount() + '.'}</p></div>
     <p class="datamsg" id="data-msg">${saveHint() ? 'Ihr Stand ist noch nicht gesichert.' : ''}</p>
-    <p class="sub" style="margin:0;font-size:.85rem">Laden ersetzt den Stand auf diesem Gerät.</p><p class="sub" style="margin:0;font-size:.8rem">LernIgel Version ${VERSION}</p>`, true);
-  $('sel-theme').value = settings.theme || 'auto'; $('sel-theme').addEventListener('change', e => { settings.theme = e.target.value; saveSettings(); applyTheme(); });
+    <p class="sub" style="margin:0;font-size:.85rem">Laden ersetzt den Stand auf diesem Gerät.</p><p class="sub" style="margin:0;font-size:.8rem">LernIgel Version ${VERSION}</p>`,
+    true
+  );
+  $('sel-theme').value = settings.theme || 'auto';
+  $('sel-theme').addEventListener('change', e => {
+    settings.theme = e.target.value;
+    saveSettings();
+    applyTheme();
+  });
   $('chk-help').addEventListener('change', async e => {
     const cb = e.target;
-    if (cb.checked && !(await ask('Schema-Hilfe einschalten? Die Hilfe trägt die Bezeichnungen des Schemas für Sie ein. Schalten Sie sie nur ein, wenn Sie das Schema schon können. Sonst lernen Sie es damit nicht.', 'Trotzdem einschalten'))) { cb.checked = false; return; }
-    settings.help = cb.checked; saveSettings();
+    if (
+      cb.checked &&
+      !(await ask(
+        'Schema-Hilfe einschalten? Die Hilfe trägt die Bezeichnungen des Schemas für Sie ein. Schalten Sie sie nur ein, wenn Sie das Schema schon können. Sonst lernen Sie es damit nicht.',
+        'Trotzdem einschalten'
+      ))
+    ) {
+      cb.checked = false;
+      return;
+    }
+    settings.help = cb.checked;
+    saveSettings();
   });
   $('btn-export').addEventListener('click', () => {
     saveDraft();
-    const data = { app: 'lernigel', v: 2, best, prog: { help: prog.help }, draft: JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null') };
-    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
-    a.download = 'lernigel-stand-' + new Date().toISOString().slice(0, 10) + '.json'; document.body.appendChild(a); a.click(); a.remove();
-    prog.dirty = false; saveProg(); $('data-msg').textContent = 'Gesichert. Die Datei liegt in Ihren Downloads.';
+    const data = {
+      app: 'lernigel',
+      v: 2,
+      best,
+      prog: { help: prog.help },
+      draft: JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null')
+    };
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
+    a.download = 'lernigel-stand-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    prog.dirty = false;
+    saveProg();
+    $('data-msg').textContent = 'Gesichert. Die Datei liegt in Ihren Downloads.';
   });
   $('file-import').addEventListener('change', e => {
-    const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+    const f = e.target.files[0];
+    if (!f) return;
+    const rd = new FileReader();
     rd.onload = () => {
       try {
-        const d = JSON.parse(rd.result); if (!d || d.app !== 'lernigel' || typeof d.best !== 'object') throw 0;
+        const d = JSON.parse(rd.result);
+        if (!d || d.app !== 'lernigel' || typeof d.best !== 'object') throw 0;
         localStorage.setItem(STORE_KEY, JSON.stringify(d.best));
         localStorage.setItem(PROG_KEY, JSON.stringify({ help: (d.prog && d.prog.help) || {}, dirty: false }));
         if (d.draft) localStorage.setItem(DRAFT_KEY, JSON.stringify(d.draft));
-        $('data-msg').textContent = 'Stand geladen. Die Seite lädt neu …'; setTimeout(() => { location.hash = '#/'; location.reload(); }, 700);
-      } catch (x) { $('data-msg').textContent = 'Diese Datei passt nicht. Bitte wählen Sie eine mit „Stand sichern“ erstellte Datei.'; }
+        $('data-msg').textContent = 'Stand geladen. Die Seite lädt neu …';
+        setTimeout(() => {
+          location.hash = '#/';
+          location.reload();
+        }, 700);
+      } catch (x) {
+        $('data-msg').textContent =
+          'Diese Datei passt nicht. Bitte wählen Sie eine mit „Stand sichern“ erstellte Datei.';
+      }
     };
     rd.readAsText(f);
   });
 }
 // Igel mit Spruch (klein in der Ecke, nur auf Aufgabenseiten)
-const SP_START = ['Viel Erfolg!', 'Ruhig bleiben, Zeile für Zeile.', 'Die Nebenrechnung nicht vergessen!', 'Zuerst lesen, dann rechnen.'];
+const SP_START = [
+  'Viel Erfolg!',
+  'Ruhig bleiben, Zeile für Zeile.',
+  'Die Nebenrechnung nicht vergessen!',
+  'Zuerst lesen, dann rechnen.'
+];
 const SP_TOP = ['Sauber gerechnet!', 'Alles richtig, stark!', 'Das sitzt!'];
 const SP_MID = ['Gut gemacht, fast alles richtig.', 'Schauen Sie sich die gelben und roten Stellen an.'];
-const SP_LOW = ['Nicht schlimm. Der Musterweg hilft, dann versuchen Sie es noch einmal.', 'Üben macht den Meister. Gleich noch einmal?'];
+const SP_LOW = [
+  'Nicht schlimm. Der Musterweg hilft, dann versuchen Sie es noch einmal.',
+  'Üben macht den Meister. Gleich noch einmal?'
+];
 let igelTimer = null;
 function igelSay(p) {
   const pool = p == null ? SP_START : p === 100 ? SP_TOP : p >= 67 ? SP_MID : SP_LOW;
-  const el = $('igel-talk'); if (!el) return;
+  const el = $('igel-talk');
+  if (!el) return;
   el.querySelector('.bubble').textContent = pool[Math.floor(Math.random() * pool.length)];
-  el.classList.add('show'); clearTimeout(igelTimer); igelTimer = setTimeout(() => el.classList.remove('show'), 7000);
+  el.classList.add('show');
+  clearTimeout(igelTimer);
+  igelTimer = setTimeout(() => el.classList.remove('show'), 7000);
 }
-(function () { const d = document.createElement('div'); d.id = 'igel-talk'; d.innerHTML = '<span class="mini">' + uniqIds(document.getElementById('tpl-wm').content.querySelector('svg').outerHTML) + '</span><span class="bubble"></span>'; $('v-task').insertBefore(d, $('v-task').querySelector('main')); })();
+(function () {
+  const d = document.createElement('div');
+  d.id = 'igel-talk';
+  d.innerHTML =
+    '<span class="mini">' +
+    uniqIds(document.getElementById('tpl-wm').content.querySelector('svg').outerHTML) +
+    '</span><span class="bubble"></span>';
+  $('v-task').insertBefore(d, $('v-task').querySelector('main'));
+})();
 const backLink = (href, text) => `<div class="nav-top"><a class="linkbtn" href="${href}">‹ ${text}</a></div>`;
 
 let backHash = '';
@@ -125,48 +233,126 @@ function route() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   if (parts[0] !== 'daten') backHash = location.hash;
   document.title = 'LernIgel – Üben für Kaufmännische Steuerung und Kontrolle';
-  if (parts[0] === 'daten') { showData(); return; }
+  if (parts[0] === 'daten') {
+    showData();
+    return;
+  }
   if (parts[0] !== 'ksk') {
-    showMenu(`<div class="wm-box">${wordmark()}</div><p class="sub">Kostenlos üben, ohne Konto</p><div class="tiles">${tileHtml({ href: '#/ksk', icon: 'coin', label: 'Kaufmännische Steuerung und Kontrolle', small: true })}</div>${saveHint()}<a class="linkbtn" href="#/daten">Meine Daten</a>`);
+    showMenu(
+      `<div class="wm-box">${wordmark()}</div><p class="sub">Kostenlos üben, ohne Konto</p><div class="tiles">${tileHtml({ href: '#/ksk', icon: 'coin', label: 'Kaufmännische Steuerung und Kontrolle', small: true })}</div>${saveHint()}<a class="linkbtn" href="#/daten">Meine Daten</a>`
+    );
     return;
   }
   if (parts.length === 1) {
-    showMenu(`${backLink('#/', 'Start')}<div class="wm-box">${wordmark()}</div><h2>Kaufmännische Steuerung und Kontrolle</h2><div class="tiles">${tileHtml({ href: '#/ksk/ueben', icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`, true);
+    showMenu(
+      `${backLink('#/', 'Start')}<div class="wm-box">${wordmark()}</div><h2>Kaufmännische Steuerung und Kontrolle</h2><div class="tiles">${tileHtml({ href: '#/ksk/ueben', icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`,
+      true
+    );
     return;
   }
   if (parts[1] === 'ueben' && parts.length === 2) {
-    const tiles = AREAS.map(a => { const d = a.tasks.filter(id => best[id] != null).length; return tileHtml({ href: '#/ksk/ueben/' + a.id, icon: a.icon, label: a.name, small: a.name.length > 12, tag: a.tasks.length ? d + ' von ' + a.tasks.length + ' bearbeitet' : 'folgt' }); }).join('') +
-      tileHtml({ soon: true, icon: 'dots', label: 'Weitere Themen folgen', small: true });
-    showMenu(`${backLink('#/ksk', 'Fach')}<h2>Was möchten Sie üben?</h2><div class="tiles">${tiles}</div>${saveHint()}`, true);
+    const tiles =
+      AREAS.map(a => {
+        const d = a.tasks.filter(id => best[id] != null).length;
+        return tileHtml({
+          href: '#/ksk/ueben/' + a.id,
+          icon: a.icon,
+          label: a.name,
+          small: a.name.length > 12,
+          tag: a.tasks.length ? d + ' von ' + a.tasks.length + ' bearbeitet' : 'folgt'
+        });
+      }).join('') + tileHtml({ soon: true, icon: 'dots', label: 'Weitere Themen folgen', small: true });
+    showMenu(
+      `${backLink('#/ksk', 'Fach')}<h2>Was möchten Sie üben?</h2><div class="tiles">${tiles}</div>${saveHint()}`,
+      true
+    );
     return;
   }
   const area = areaOf(parts[2]);
-  if (parts[1] !== 'ueben' || !area) { location.replace('#/ksk/ueben'); return; }
+  if (parts[1] !== 'ueben' || !area) {
+    location.replace('#/ksk/ueben');
+    return;
+  }
   if (parts.length === 3 && area.children) {
-    const tiles = area.children.map(a => { const d = a.tasks.filter(id => best[id] != null).length; return tileHtml({ href: '#/ksk/ueben/' + a.id, icon: a.icon, label: a.name.replace(/(zuschlag|faktor|spanne)$/, '&shy;$1'), small: a.name.length > 12, tag: d + ' von ' + a.tasks.length + ' bearbeitet' }); }).join('');
+    const tiles = area.children
+      .map(a => {
+        const d = a.tasks.filter(id => best[id] != null).length;
+        return tileHtml({
+          href: '#/ksk/ueben/' + a.id,
+          icon: a.icon,
+          label: a.name.replace(/(zuschlag|faktor|spanne)$/, '&shy;$1'),
+          small: a.name.length > 12,
+          tag: d + ' von ' + a.tasks.length + ' bearbeitet'
+        });
+      })
+      .join('');
     const rs = randStats(area.id);
-    const chips = rs.n ? `<div class="chips" aria-label="Zufällige Aufgaben"><span class="chip ok">✓ ${rs.ok} <small>richtig</small></span></div>` : '';
-    showMenu(`${backLink('#/ksk/ueben', 'Bereiche')}<h2>${esc(area.name)}</h2><div class="tiles">${tiles}</div><div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe aus allen Kennzahlen${rs.n ? `<span class="rsub">${rs.n} abgegeben</span>` : ''}</button>${chips}</div>${saveHint()}`, true);
-    fitChips(); $('btn-rand').addEventListener('click', () => { location.hash = '#/ksk/ueben/' + area.id + '/' + randomTaskId(area.id); });
+    const chips = rs.n
+      ? `<div class="chips" aria-label="Zufällige Aufgaben"><span class="chip ok">✓ ${rs.ok} <small>richtig</small></span></div>`
+      : '';
+    showMenu(
+      `${backLink('#/ksk/ueben', 'Bereiche')}<h2>${esc(area.name)}</h2><div class="tiles">${tiles}</div><div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe aus allen Kennzahlen${rs.n ? `<span class="rsub">${rs.n} abgegeben</span>` : ''}</button>${chips}</div>${saveHint()}`,
+      true
+    );
+    fitChips();
+    $('btn-rand').addEventListener('click', () => {
+      location.hash = '#/ksk/ueben/' + area.id + '/' + randomTaskId(area.id);
+    });
     return;
   }
   if (parts.length === 3) {
-    const list = area.tasks.map((id, i) => {
-      const t = TASKS[taskIndex(id)]; const st = statusOf(id);
-      return `<li><button data-id="${id}"><span class="nr">${i + 1}</span><span class="tt">${esc(t.title)}</span><span class="st ${st.cls}">${st.text}</span></button></li>`;
-    }).join('');
+    const list = area.tasks
+      .map((id, i) => {
+        const t = TASKS[taskIndex(id)];
+        const st = statusOf(id);
+        return `<li><button data-id="${id}"><span class="nr">${i + 1}</span><span class="tt">${esc(t.title)}</span><span class="st ${st.cls}">${st.text}</span></button></li>`;
+      })
+      .join('');
     const rs = randStats(area.id);
-    const chips = rs.n ? `<div class="chips" aria-label="Zufällige Aufgaben"><span class="chip ok">✓ ${rs.ok} <small>richtig</small></span></div>` : '';
-    showMenu((area.parent ? backLink('#/ksk/ueben/' + area.parent, 'Kennzahlen') : backLink('#/ksk/ueben', 'Bereiche')) + `<h2>${esc(area.name)}</h2>` +
-      (area.tasks.length ? `<ul class="tasklist">${list}</ul>${area.tasks.some(id => prog.help[id]) ? '<p class="legend-h"><span class="st h">↻ gelb</span> mit aufgedeckter Lösung erreicht</p>' : ''}<div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe${rs.n ? `<span class="rsub">${rs.n} abgegeben</span>` : ''}</button>${chips}</div>` : '<p class="sub" style="margin:0">Die Aufgaben dieses Bereichs folgen.</p>'), true);
-    $('menu').querySelectorAll('.tasklist button').forEach(b => b.addEventListener('click', () => { location.hash = '#/ksk/ueben/' + area.id + '/' + b.dataset.id; }));
-    fitChips(); const r = $('btn-rand');
-    if (r) r.addEventListener('click', () => { location.hash = '#/ksk/ueben/' + area.id + '/' + randomTaskId(area.id); });
+    const chips = rs.n
+      ? `<div class="chips" aria-label="Zufällige Aufgaben"><span class="chip ok">✓ ${rs.ok} <small>richtig</small></span></div>`
+      : '';
+    showMenu(
+      (area.parent
+        ? backLink('#/ksk/ueben/' + area.parent, 'Kennzahlen')
+        : backLink('#/ksk/ueben', 'Bereiche')) +
+        `<h2>${esc(area.name)}</h2>` +
+        (area.tasks.length
+          ? `<ul class="tasklist">${list}</ul>${area.tasks.some(id => prog.help[id]) ? '<p class="legend-h"><span class="st h">↻ gelb</span> mit aufgedeckter Lösung erreicht</p>' : ''}<div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe${rs.n ? `<span class="rsub">${rs.n} abgegeben</span>` : ''}</button>${chips}</div>`
+          : '<p class="sub" style="margin:0">Die Aufgaben dieses Bereichs folgen.</p>'),
+      true
+    );
+    $('menu')
+      .querySelectorAll('.tasklist button')
+      .forEach(b =>
+        b.addEventListener('click', () => {
+          location.hash = '#/ksk/ueben/' + area.id + '/' + b.dataset.id;
+        })
+      );
+    fitChips();
+    const r = $('btn-rand');
+    if (r)
+      r.addEventListener('click', () => {
+        location.hash = '#/ksk/ueben/' + area.id + '/' + randomTaskId(area.id);
+      });
     return;
   }
   const i = taskIndex(parts[3]);
-  if (i < 0 || !(area.tasks.includes(parts[3]) || parts[3].startsWith('z-' + area.id + '-') || (area.children && parts[3].startsWith('z-kz_')))) { location.replace('#/ksk/ueben/' + area.id); return; }
-  cur = i; curPart = 0; showTask(); igelSay(null);
+  if (
+    i < 0 ||
+    !(
+      area.tasks.includes(parts[3]) ||
+      parts[3].startsWith('z-' + area.id + '-') ||
+      (area.children && parts[3].startsWith('z-kz_'))
+    )
+  ) {
+    location.replace('#/ksk/ueben/' + area.id);
+    return;
+  }
+  cur = i;
+  curPart = 0;
+  showTask();
+  igelSay(null);
   const sub = areaOf(TASKS[i].area) || area;
   $('hd-title').textContent = sub.name;
   document.title = 'LernIgel – ' + sub.name + ': ' + TASKS[i].title;

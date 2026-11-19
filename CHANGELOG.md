@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.0.1 (2026-11-19)
+
+Nur Aufräumen, keine Änderung am Verhalten der Seite.
+
+- Die großen Dateien `gen.js` und `gen_kz.js` sind in kleinere Dateien nach Themen aufgeteilt (Vorwärts, Rückwärts, Komplettaufgaben, Kennzahlen A–E, Aufgabe bauen, Musterweg)
+- Einheitlich formatiert, Kopfkommentare je Datei
+- Geprüft: alle 2.647 Stichproben-Aufgaben und 44 Bildschirmfotos vorher und nachher identisch
+
 ## 1.0.0 (2026-11-09)
 
 Erste vollständige Fassung. Vorgänger: 0.1.0 (Prototyp mit 5 Aufgaben).
