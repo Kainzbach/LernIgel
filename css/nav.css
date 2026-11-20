@@ -47,6 +47,16 @@
   width: 100%;
   height: 100%;
 }
+/* Heller Modus: weißer Kern mit blauem Rand und Schein, damit die Sterne auf Hellblau sichtbar bleiben */
+html:not([data-theme='dark']) .spark {
+  filter: drop-shadow(0 0 5px rgba(40, 140, 220, 0.75));
+}
+html:not([data-theme='dark']) .spark path {
+  fill: #fff;
+  stroke: #3d9be0;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+}
 @keyframes tw {
   0%,
   100% {

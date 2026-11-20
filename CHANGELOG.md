@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.1.1 (2026-11-20)
+
+- Heller Modus: Die funkelnden Sterne im Hintergrund haben jetzt einen blauen Rand und Schein und sind auf Hellblau besser zu sehen. Dunkelmodus unverändert
+
 ## 1.1.0 (2026-11-20)
 
 - Taschenrechner gibt es nur noch in einer Aufgabe, nicht mehr in Menüs, Übersicht und „Meine Daten“
