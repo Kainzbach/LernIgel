@@ -1,6 +1,6 @@
 # LernIgel
 
-Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.1.2, siehe `CHANGELOG.md`.
+Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.1.3, siehe `CHANGELOG.md`.
 
 Läuft im Browser, ohne Konto und ohne Server. Alles bleibt auf Ihrem Gerät.
 
@@ -69,9 +69,10 @@ Es werden keine Daten an einen Server gesendet. Bestwerte und Entwürfe liegen n
 - `js/state.js`, `js/render.js`: Zustand und Darstellung
 - `js/evaluate.js`: Auswertung und Punkte
 - `js/events.js`, `js/calc.js`, `js/draft.js`: Bedienung, Taschenrechner, Entwurf speichern
+- `js/hintergrund.js`: feste Hintergrundhöhe auf Touch-Geräten
 - `build.js`: baut daraus eine einzelne HTML-Datei (`node build.js`, Ergebnis in `dist/`)
 
-Die Skripte werden in dieser Reihenfolge geladen (siehe `index.html`). Es sind klassische Skripte, keine Module, damit die Seite auch lokal ohne Server läuft.
+Die Skripte werden in dieser Reihenfolge geladen (siehe `index.html`). Bei jeder neuen Version muss die Nummer hinter `?v=` in `index.html` mitgeändert werden, damit Browser keine alten Dateien behalten. Es sind klassische Skripte, keine Module, damit die Seite auch lokal ohne Server läuft.
 
 ## Aufgaben ergänzen
 

@@ -1,6 +1,11 @@
 # Änderungen
 
-## 1.1.2 (2026-11-20)
+## 1.1.3 (2026-11-20)
+
+- Handy: Der Hintergrund der Menüseiten hat auf Touch-Geräten eine feste Höhe und springt nicht mehr, wenn die Adressleiste des Browsers beim Wischen ein- oder ausfährt (die Lösung aus 1.1.2 hat nicht ausgereicht)
+- Die Dateien der Seite werden mit der Versionsnummer geladen (`?v=…`), damit Handys nach einem Update nicht alte und neue Dateien mischen
+
+## 1.1.2 (2026-11-20, nicht veröffentlicht, ersetzt durch 1.1.3)
 
 - Handy: Der Hintergrund der Menüseiten springt nicht mehr, wenn die Adressleiste des Browsers beim Wischen ein- oder ausfährt
 
