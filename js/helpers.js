@@ -6,7 +6,7 @@ const TOL = 0.01; // erlaubte Abweichung in Euro (überall)
 const WEAK = { Handlungskosten: 'HK', HK: 'HK', Gewinn: 'G', G: 'G' };
 // Diese Schreibweisen zählen voll (Namenspunkt), die Kürzel HK und G bleiben schwach
 const WEAK_FULL = { Handlungskosten: 1, Gewinn: 1 };
-const VERSION = '1.0.2';
+const VERSION = '1.1.0';
 const STORE_KEY = 'ksk-lernapp-best';
 const $ = id => document.getElementById(id);
 const esc = s =>

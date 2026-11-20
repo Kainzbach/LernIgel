@@ -1,6 +1,6 @@
 # LernIgel
 
-Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.0.2, siehe `CHANGELOG.md`.
+Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.1.0, siehe `CHANGELOG.md`.
 
 Läuft im Browser, ohne Konto und ohne Server. Alles bleibt auf Ihrem Gerät.
 

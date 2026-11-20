@@ -1,7 +1,24 @@
 /* =====================================================================
-   Taschenrechner (Knopf oben rechts, standardmäßig aus, Verlauf der letzten 5)
+   Taschenrechner (Knopf oben rechts, Verlauf der letzten 5). Er gibt es nur in einer Aufgabe.
+   Start: Handy und Tablet im Hochformat (unter 1000 px) zu, Computer/breites Tablet offen – in einer neuen Sitzung (Browser-Tab).
+   Danach bleibt der zuletzt gewählte Zustand in dieser Sitzung (sessionStorage).
    ===================================================================== */
-const CALC_KEY = 'ksk-lernapp-calc';
+const CALC_KEY = 'ksk-lernapp-calc-sitzung';
+let calcMem = null; // Ersatz, falls sessionStorage nicht verfügbar ist (z. B. privates Fenster)
+const calcGet = () => {
+  try {
+    const v = sessionStorage.getItem(CALC_KEY);
+    return v === null ? calcMem : v;
+  } catch (e) {
+    return calcMem;
+  }
+};
+const calcPut = v => {
+  calcMem = v;
+  try {
+    sessionStorage.setItem(CALC_KEY, v);
+  } catch (e) {}
+};
 const calc = { expr: '', hist: [], fresh: false };
 function calcOut(v) {
   return String(+v.toFixed(8)).replace('.', ',');
@@ -54,17 +71,26 @@ function calcPress(k) {
   }
   calcRender();
 }
-function setCalc(open) {
+function setCalc(open, remember = true) {
   $('calc').classList.toggle('show', open);
+  document.body.classList.toggle('calc-open', open);
   $('btn-calc').setAttribute('aria-pressed', open ? 'true' : 'false');
-  try {
-    localStorage.setItem(CALC_KEY, open ? '1' : '0');
-  } catch (e) {}
+  if (remember) calcPut(open ? '1' : '0');
   if (open) {
     $('calc').focus();
     calcRender();
   }
   calcSpace();
+}
+// Beim Öffnen einer Aufgabe: erste Aufgabe der Sitzung nach Bildschirmbreite (ab 1000 px ist die Seite zweispaltig, dort passt der Rechner), sonst letzter Zustand
+function calcEnter() {
+  let st = calcGet();
+  if (st === null) st = window.innerWidth >= 1000 ? '1' : '0';
+  setCalc(st === '1');
+}
+// In Menüs, Übersicht und „Meine Daten“ gibt es keinen Rechner (der gemerkte Zustand bleibt)
+function calcLeave() {
+  setCalc(false, false);
 }
 // Solange der Rechner offen ist, bekommt die Seite unten Platz, damit alles (z. B. "Fertig") darüber gescrollt werden kann
 function calcSpace() {
@@ -92,7 +118,4 @@ $('calc').addEventListener('keydown', e => {
     calcPress(k);
   }
 });
-try {
-  if (localStorage.getItem(CALC_KEY) === '1') setCalc(true);
-} catch (e) {}
 calcRender();

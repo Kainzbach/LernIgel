@@ -805,17 +805,20 @@ table.res {
 
 /* Computer: Aufgabentext links fest, Tabelle rechts */
 @media (min-width: 1000px) {
+  /* Die rechte Spalte ist höchstens so breit wie ihr Inhalt (--rechts), kein leerer Streifen daneben */
   main {
-    max-width: 1600px;
+    --links: clamp(400px, 36vw, 560px);
+    --rechts: 760px;
+    max-width: calc(var(--links) + 18px + var(--rechts) + 32px);
     display: grid;
-    grid-template-columns: clamp(400px, 36vw, 560px) minmax(0, 1fr);
+    grid-template-columns: var(--links) minmax(0, 1fr);
     column-gap: 18px;
     align-items: start;
   }
   /* Regel: Enthält die Aufgabe eine Tabelle (z. B. Konto), wird die Aufgabenkarte breiter */
   main:has(.konto),
   main:has(.datatab) {
-    grid-template-columns: 600px minmax(0, 1fr);
+    --links: 600px;
   }
   main > .tabs {
     grid-column: 1 / -1;
@@ -1222,4 +1225,12 @@ table.way td:first-child {
   border-top: 1px solid var(--line);
   margin-top: 14px;
   padding-bottom: 0;
+}
+
+/* Breite Fenster: Ist der Taschenrechner offen, bekommt die Seite rechts seinen Platz, nichts liegt darunter */
+@media (min-width: 1500px) {
+  body.calc-open #v-task main {
+    margin-left: auto;
+    margin-right: 302px;
+  }
 }

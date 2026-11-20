@@ -1,5 +1,11 @@
 # Änderungen
 
+## 1.1.0 (2026-11-20)
+
+- Taschenrechner gibt es nur noch in einer Aufgabe, nicht mehr in Menüs, Übersicht und „Meine Daten“
+- Start des Taschenrechners: auf dem Handy und im Hochformat auf dem Tablet (unter 1000 px Breite) immer zu; auf Computer und breiten Tablets offen, sobald die erste Aufgabe einer neuen Sitzung (Browser-Tab) geöffnet wird. Danach bleibt der zuletzt gewählte Zustand in dieser Sitzung, auch beim Neuladen
+- Aufgabenseite am Computer: Die rechte Spalte ist nur noch so breit wie ihr Inhalt. Bei breiten Fenstern (ab 1500 px) hat der offene Taschenrechner seinen eigenen Platz rechts daneben und verdeckt keine Felder und Knöpfe mehr
+
 ## 1.0.2 (2026-11-19)
 
 Nur Aussehen, keine Änderung an Aufgaben oder Wertung.

@@ -52,6 +52,7 @@ const taskIndex = id => ensureTask(id);
 
 function showMenu(html, small) {
   document.body.className = 'is-menu';
+  calcLeave();
   $('v-task').hidden = true;
   $('v-menu').hidden = false;
   $('menu').className = 'menu' + (small ? ' small' : '');
@@ -104,6 +105,7 @@ function showTask() {
   document.body.className = 'is-task';
   $('v-menu').hidden = true;
   $('v-task').hidden = false;
+  calcEnter();
   window.scrollTo(0, 0);
 }
 function fitChips() {
