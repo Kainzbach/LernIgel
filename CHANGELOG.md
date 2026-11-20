@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.1.2 (2026-11-20)
+
+- Handy: Der Hintergrund der Menüseiten springt nicht mehr, wenn die Adressleiste des Browsers beim Wischen ein- oder ausfährt
+
 ## 1.1.1 (2026-11-20)
 
 - Heller Modus: Die funkelnden Sterne im Hintergrund haben jetzt einen blauen Rand und Schein und sind auf Hellblau besser zu sehen. Dunkelmodus unverändert

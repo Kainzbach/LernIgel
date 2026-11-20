@@ -241,6 +241,10 @@ html:not([data-theme='dark']) .spark path {
 .fr-bg {
   position: fixed;
   inset: 0;
+  /* Feste Höhe wie bei eingefahrener Adressleiste: beim Wischen am Handy springt der Hintergrund nicht */
+  bottom: auto;
+  height: 100vh;
+  height: 100lvh;
   overflow: hidden;
   z-index: 0;
   pointer-events: none;
