@@ -204,22 +204,6 @@ html[data-theme='dark'] .tasklist .st.draft {
   background: rgba(80, 150, 255, 0.2);
   color: #8fbfff;
 }
-html[data-theme='dark'] .chip {
-  background: rgba(27, 32, 40, 0.85);
-  color: #e6f0f5;
-}
-html[data-theme='dark'] .chip.ok {
-  color: #6fe08a;
-}
-html[data-theme='dark'] .chip.bad {
-  color: #ff8a80;
-}
-html[data-theme='dark'] .chip.fix {
-  color: #f0c860;
-}
-html[data-theme='dark'] .chip.pc {
-  color: #58c8e8;
-}
 /* Meine Daten */
 html[data-theme='dark'] .setbox {
   background: rgba(27, 32, 40, 0.78);
@@ -411,4 +395,16 @@ html[data-theme='dark'] #igel-talk .bubble {
 }
 html[data-theme='dark'] a {
   color: #8fbfff;
+}
+/* Anzeige der Zufallsaufgaben */
+html[data-theme='dark'] .ztxt,
+html[data-theme='dark'] .zlab,
+html[data-theme='dark'] .zall {
+  color: #58c8e8;
+}
+html[data-theme='dark'] .zbar {
+  background: rgba(255, 255, 255, 0.14);
+}
+html[data-theme='dark'] .zall {
+  border-top-color: rgba(255, 255, 255, 0.18);
 }

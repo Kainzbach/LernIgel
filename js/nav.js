@@ -108,13 +108,19 @@ function showTask() {
   calcEnter();
   window.scrollTo(0, 0);
 }
-function fitChips() {
-  document.querySelectorAll('.chips').forEach(c => {
-    c.classList.remove('compact');
-    if (c.scrollWidth > c.clientWidth + 1) c.classList.add('compact');
-  });
+// Zufallsaufgaben: letzte 10 als Zahl, Balken und Punkte (grün = 100 %, gelb = teilweise, rot = 0 %),
+// darunter bei mehr als 10 Abgaben die Gesamtzeile
+function randPanel(rs) {
+  if (!rs.n) return '';
+  const last = rs.recent;
+  const ok10 = last.filter(x => x === 100).length;
+  const pc = Math.round((ok10 / last.length) * 100);
+  const dots = last
+    .map(x => `<span class="zd ${x === 100 ? 'g' : x > 0 ? 'y' : 'r'}" title="${x} %"></span>`)
+    .join('');
+  const gesamt = rs.n > last.length ? `<div class="zall">Insgesamt ${rs.ok} von ${rs.n} richtig</div>` : '';
+  return `<div class="zv" aria-label="Zufallsaufgaben"><div class="ztxt">${ok10} von ${last.length} richtig</div><div class="zbar"><i style="width:${pc}%"></i></div><div class="zdots">${dots}</div><div class="zlab">Letzte ${last.length} Zufallsaufgaben</div>${gesamt}</div>`;
 }
-window.addEventListener('resize', fitChips);
 const hasProgress = () => Object.keys(best).length > 0 || Object.keys(rowsByTask).length > 0;
 const saveHint = () =>
   prog.dirty && hasProgress()
@@ -262,7 +268,7 @@ function route() {
           small: a.name.length > 12,
           tag: a.tasks.length ? d + ' von ' + a.tasks.length + ' bearbeitet' : 'folgt'
         });
-      }).join('') + tileHtml({ soon: true, icon: 'dots', label: 'Weitere Themen folgen', small: true });
+      }).join('');
     showMenu(
       `${backLink('#/ksk', 'Fach')}<h2>Was möchten Sie üben?</h2><div class="tiles">${tiles}</div>${saveHint()}`,
       true
@@ -288,14 +294,10 @@ function route() {
       })
       .join('');
     const rs = randStats(area.id);
-    const chips = rs.n
-      ? `<div class="chips" aria-label="Zufällige Aufgaben"><span class="chip ok">✓ ${rs.ok} <small>richtig</small></span></div>`
-      : '';
     showMenu(
-      `${backLink('#/ksk/ueben', 'Bereiche')}<h2>${esc(area.name)}</h2><div class="tiles">${tiles}</div><div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe aus allen Kennzahlen${rs.n ? `<span class="rsub">${rs.n} abgegeben</span>` : ''}</button>${chips}</div>${saveHint()}`,
+      `${backLink('#/ksk/ueben', 'Bereiche')}<h2>${esc(area.name)}</h2><div class="tiles">${tiles}</div><div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe aus allen Kennzahlen</button>${randPanel(rs)}</div>${saveHint()}`,
       true
     );
-    fitChips();
     $('btn-rand').addEventListener('click', () => {
       location.hash = '#/ksk/ueben/' + area.id + '/' + randomTaskId(area.id);
     });
@@ -310,16 +312,13 @@ function route() {
       })
       .join('');
     const rs = randStats(area.id);
-    const chips = rs.n
-      ? `<div class="chips" aria-label="Zufällige Aufgaben"><span class="chip ok">✓ ${rs.ok} <small>richtig</small></span></div>`
-      : '';
     showMenu(
       (area.parent
         ? backLink('#/ksk/ueben/' + area.parent, 'Kennzahlen')
         : backLink('#/ksk/ueben', 'Bereiche')) +
         `<h2>${esc(area.name)}</h2>` +
         (area.tasks.length
-          ? `<ul class="tasklist">${list}</ul>${area.tasks.some(id => prog.help[id]) ? '<p class="legend-h"><span class="st h">↻ gelb</span> mit aufgedeckter Lösung erreicht</p>' : ''}<div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe${rs.n ? `<span class="rsub">${rs.n} abgegeben</span>` : ''}</button>${chips}</div>`
+          ? `<ul class="tasklist">${list}</ul>${area.tasks.some(id => prog.help[id]) ? '<p class="legend-h"><span class="st h">↻ gelb</span> mit aufgedeckter Lösung erreicht</p>' : ''}<div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe</button>${randPanel(rs)}</div>`
           : '<p class="sub" style="margin:0">Die Aufgaben dieses Bereichs folgen.</p>'),
       true
     );
@@ -330,7 +329,6 @@ function route() {
           location.hash = '#/ksk/ueben/' + area.id + '/' + b.dataset.id;
         })
       );
-    fitChips();
     const r = $('btn-rand');
     if (r)
       r.addEventListener('click', () => {

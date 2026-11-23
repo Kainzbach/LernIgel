@@ -543,46 +543,6 @@ header h1 {
   align-items: center;
   gap: 12px;
 }
-.chips {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: clamp(3px, 1.2vw, 6px);
-  justify-content: center;
-  max-width: 100%;
-}
-.chip small {
-  font-weight: 500;
-  font-size: 0.88em;
-}
-.chips.compact .chip small {
-  display: none;
-}
-.rand .rsub {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 400;
-  opacity: 0.9;
-}
-.chip {
-  font-size: clamp(11px, 3.3vw, 13px);
-  font-weight: 600;
-  padding: 4px clamp(5px, 2vw, 10px);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  white-space: nowrap;
-}
-.chip.ok {
-  color: #1d7a3e;
-}
-.chip.bad {
-  color: #b3261e;
-}
-.chip.fix {
-  color: #8a5a00;
-}
-.chip.pc {
-  color: #0e5a86;
-}
 .todo {
   width: 100%;
   max-width: 560px;
@@ -792,4 +752,66 @@ body.is-menu #igel-talk {
     max-width: 200px;
     margin-bottom: 30px;
   }
+}
+
+/* Anzeige der Zufallsaufgaben (siehe randPanel in js/nav.js) */
+.zv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(320px, 100%);
+}
+.ztxt {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0e5a86;
+}
+.zbar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(14, 90, 134, 0.15);
+  overflow: hidden;
+}
+.zbar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #2fb86a, #1d9a52);
+  border-radius: 999px;
+}
+.zdots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.zd {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.18);
+}
+.zd.g {
+  background: #2fb86a;
+}
+.zd.y {
+  background: #f0b429;
+}
+.zd.r {
+  background: #e5534b;
+}
+.zlab {
+  font-size: 0.75rem;
+  color: #0e5a86;
+  opacity: 0.8;
+}
+.zall {
+  width: 100%;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(14, 90, 134, 0.2);
+  text-align: center;
+  font-size: 0.8rem;
+  color: #0e5a86;
+  opacity: 0.85;
 }

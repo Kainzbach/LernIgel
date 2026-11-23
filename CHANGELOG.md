@@ -1,5 +1,11 @@
 # Änderungen
 
+## 1.2.0 (2026-11-23)
+
+- Zufallsaufgaben: Unter dem Zufallsknopf steht jetzt „N von 10 richtig“ mit Balken und einer Punktereihe der letzten 10 Abgaben (grün = 100 %, gelb = teilweise, rot = 0 %). Bei mehr als 10 Abgaben folgt eine Zeile „Insgesamt N von M richtig“. Das gilt für alle Bereiche und die Kennzahlen-Untermenüs
+- Auf der Seite „Was möchten Sie üben?“ entfällt die graue Kachel „Weitere Themen folgen“
+- Gespeicherte Stände bleiben unverändert
+
 ## 1.1.3 (2026-11-20)
 
 - Handy: Der Hintergrund der Menüseiten hat auf Touch-Geräten eine feste Höhe und springt nicht mehr, wenn die Adressleiste des Browsers beim Wischen ein- oder ausfährt (die Lösung aus 1.1.2 hat nicht ausgereicht)

@@ -85,7 +85,8 @@ function randStats(area) {
   const pre = area === 'kennzahlen' ? 'z-kz_' : 'z-' + area + '-';
   const ids = Object.keys(best).filter(id => id.startsWith(pre));
   const ok = ids.filter(id => best[id] === 100).length;
-  return { n: ids.length, ok };
+  // Reihenfolge der Abgabe = Reihenfolge der gespeicherten Einträge; recent = Prozentwerte der letzten 10
+  return { n: ids.length, ok, recent: ids.slice(-10).map(id => best[id]) };
 }
 const isRandom = t => String(t.id).startsWith('z-');
 function saveBest() {
