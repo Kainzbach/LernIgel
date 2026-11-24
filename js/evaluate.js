@@ -374,13 +374,20 @@ function evaluate(task) {
         ? 'Das ×100 fehlt im Zähler.'
         : '';
     const good = x => (x === 'ok' || x === 'follow' ? 1 : 0);
-    const kp = good(zst) + good(nst) + good(sst);
+    // Rechenweg: Wo der Zähler eine Rechnung sein muss, zählt eine blanke Zahl nicht.
+    const zW0 = d.wnum ? d.wnum(T, base) : '';
+    const needsWay = /[×−]/.test(zW0);
+    const hasOp = /[−\-+×xX*÷:\/]/.test(String(s.z || '').trim().replace(/^[−-]/, ''));
+    const noWayZ = needsWay && good(zst) && !hasOp;
+    const noWayS = zst === 'empty' && nst === 'empty' && good(sst) === 1;
+    const zPt = noWayZ ? 0 : good(zst);
+    const kp = zPt + good(nst) + good(sst);
     kzPts[id] = kp;
     pts += kp;
     s.st = {
-      z: zst === 'empty' ? 'bad' : zst,
+      z: noWayZ ? 'follow' : zst === 'empty' ? 'bad' : zst,
       n: nst === 'empty' ? 'bad' : nst,
-      s: sst === 'empty' ? 'bad' : sst
+      s: noWayS ? 'follow' : sst === 'empty' ? 'bad' : sst
     };
     kzItems.push({
       id,
@@ -396,6 +403,8 @@ function evaluate(task) {
       nv,
       sv,
       hint,
+      noWayZ,
+      noWayS,
       zW: d.wnum ? d.wnum(T, base) : ''
     });
   });
@@ -463,6 +472,8 @@ function buildKzHtml(kzItems, task) {
   if (!kzItems.length) return '';
   const cell = (st, ok, got, exp, extra) => {
     if (st === 'ok') return `<span class="t-ok">✓</span> ${exp}`;
+    if (st === 'noway')
+      return `<span class="t-follow">Wert richtig, Rechenweg fehlt</span> <span class="muted">(${exp})</span>`;
     if (st === 'stale')
       return `<span class="t-follow">veraltet</span> <span class="muted">(bitte mit Ihrer Korrektur neu rechnen)</span>`;
     if (st === 'follow')
@@ -475,7 +486,7 @@ function buildKzHtml(kzItems, task) {
     const d = k.d;
     RV = false;
     const z = cell(
-      k.zst,
+      k.noWayZ ? 'noway' : k.zst,
       null,
       k.zv != null ? fmtMax(k.zv, 4) : '',
       (k.zW ? k.zW + ' = ' : '') + fmtMax(k.zT, 4),
@@ -484,7 +495,7 @@ function buildKzHtml(kzItems, task) {
     const n = cell(k.nst, null, k.nv != null ? fmtMax(k.nv, 4) : '', fmtMax(k.nT, 4));
     const e =
       cell(
-        k.sst,
+        k.noWayS ? 'noway' : k.sst,
         null,
         isNaN(k.sv) ? '' : fmtMax(k.sv, 6),
         fmtDec(k.expT, d.dec) + (d.unit ? ' ' + d.unit : '')
@@ -589,7 +600,7 @@ function makeResult(task) {
         .map((p, pi) => {
           if (p.table) {
             const t = res.tables.find(x => x.i === pi);
-            return t ? tblHtml(t) + (pi === task.parts.findIndex(q => q.table) ? vrH : '') : '';
+            return t ? (pi === task.parts.findIndex(q => q.table) ? vrH : '') + tblHtml(t) : '';
           }
           return p.kz && p.kz.length
             ? buildKzHtml(
@@ -600,7 +611,8 @@ function makeResult(task) {
         })
         .join('')
     : '';
-  res.kzHtml = multiParts ? '' : vrH + buildKzHtml(res.kzItems, task);
+  res.vrHtml = !multiParts && res.tables.length ? vrH : '';
+  res.kzHtml = multiParts ? '' : (res.vrHtml ? '' : vrH) + buildKzHtml(res.kzItems, task);
   const way = buildWayHtml(task);
   res.wayHtml =
     HIDE && res.pct < 100

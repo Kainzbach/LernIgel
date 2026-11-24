@@ -448,15 +448,18 @@ table.res {
   border-bottom: 1px solid var(--line);
   vertical-align: top;
 }
-.res .t-ok {
+.res .t-ok,
+.ansline .t-ok {
   color: var(--ok);
   font-weight: 600;
 }
-.res .t-bad {
+.res .t-bad,
+.ansline .t-bad {
   color: var(--bad);
   font-weight: 600;
 }
-.res .t-follow {
+.res .t-follow,
+.ansline .t-follow {
   color: var(--follow);
   font-weight: 600;
 }

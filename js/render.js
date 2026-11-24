@@ -298,8 +298,8 @@ function renderResult() {
   $('res-table-wrap').style.display = t.noTable || tableParts(t) > 1 || t.kzFirst ? 'none' : '';
   $('res-multi').innerHTML = (res && res.multiHtml) || '';
   $('legend').textContent = t.noTable
-    ? 'Bei Kennzahlen zählen Zähler, Nenner und Ergebnis je 1 Punkt. Ein Wert, der aus Ihren eigenen Vorwerten folgerichtig berechnet ist, zählt als richtig (gelb).'
-    : 'Pro Tabellenzeile gibt es 4 Punkte: Bezeichnung, Vorzeichen, Betrag, Reihenfolge. Bei Kennzahlen zählen Zähler, Nenner und Ergebnis je 1 Punkt. Ein Wert, der aus Ihren eigenen Vorwerten folgerichtig berechnet ist, zählt als richtig (gelb). Prozente in der Tabelle sind nur eine Hilfe und fließen nicht in die Punkte ein.';
+    ? 'Bei Kennzahlen zählen Zähler, Nenner und Ergebnis je 1 Punkt. Ein Wert, der aus Ihren eigenen Vorwerten folgerichtig berechnet ist, zählt als richtig (gelb). Steht im Zähler nur eine Zahl statt der Rechnung, gibt es dafür keinen Punkt.'
+    : 'Pro Tabellenzeile gibt es 4 Punkte: Bezeichnung, Vorzeichen, Betrag, Reihenfolge. Bei Kennzahlen zählen Zähler, Nenner und Ergebnis je 1 Punkt. Ein Wert, der aus Ihren eigenen Vorwerten folgerichtig berechnet ist, zählt als richtig (gelb). Steht im Zähler nur eine Zahl statt der Rechnung, gibt es dafür keinen Punkt. Prozente in der Tabelle sind nur eine Hilfe und fließen nicht in die Punkte ein.';
   const tp = t.parts.find(p => p.table);
   const tt = tp && tableParts(t) <= 1 && !t.kzFirst ? partTitle(tp) : '';
   $('res-table-title').textContent = tt;
@@ -314,6 +314,7 @@ function renderResult() {
         x => `<span class="${x.pts === x.max ? 't-ok' : ''}">${esc(x.title)}: ${x.pts} von ${x.max}</span>`
       )
       .join('');
+    $('res-vr').innerHTML = res.vrHtml || '';
     $('res-rows').innerHTML = res.rowsHtml;
     $('res-kz').innerHTML = res.kzHtml || '';
     $('res-way').innerHTML = res.wayHtml || '';

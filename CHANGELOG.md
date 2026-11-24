@@ -1,5 +1,12 @@
 # Änderungen
 
+## 1.2.1 (2026-11-24)
+
+- Kennzahlen: Wo der Zähler eine Rechnung sein muss (Zuschlag, Spanne, Gewinn, Kosten- und Gewinnzuschlag u. a.), zählt eine blanke Zahl nicht mehr als Punkt (höchstens 2 von 3). Hinweis in Gelb: „Wert richtig, Rechenweg fehlt“. Nenner und Ergebnis werden weiter einzeln bewertet. Steht nur das Ergebnis da, ist es gelb markiert (1 von 3). Der Kalkulationsfaktor ist ausgenommen
+- Auswertung: Die Vorrechnung steht jetzt vor der Tabelle bzw. dem Teil (in „Komplett“: „Vorrechnung zu a)“), wie in der Aufgabe. Punkte unverändert
+- Auswertung: Die Zeile „Bezugspreis (Antwortfeld)“ ist farbig (✓ grün, folgerichtig gelb, ✗ rot)
+- Gespeicherte Bestwerte bleiben unverändert
+
 ## 1.2.0 (2026-11-23)
 
 - Zufallsaufgaben: Unter dem Zufallsknopf steht jetzt „N von 10 richtig“ mit Balken und einer Punktereihe der letzten 10 Abgaben (grün = 100 %, gelb = teilweise, rot = 0 %). Bei mehr als 10 Abgaben folgt eine Zeile „Insgesamt N von M richtig“. Das gilt für alle Bereiche und die Kennzahlen-Untermenüs
