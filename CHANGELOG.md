@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.2.2 (2026-11-24)
+
+- Intern aufgeräumt: ungenutzter Code, ungenutzte Gestaltungsregeln und eine nicht verwendete Bilddatei entfernt. Keine sichtbare Änderung
+
 ## 1.2.1 (2026-11-24)
 
 - Kennzahlen: Wo der Zähler eine Rechnung sein muss (Zuschlag, Spanne, Gewinn, Kosten- und Gewinnzuschlag u. a.), zählt eine blanke Zahl nicht mehr als Punkt (höchstens 2 von 3). Hinweis in Gelb: „Wert richtig, Rechenweg fehlt“. Nenner und Ergebnis werden weiter einzeln bewertet. Steht nur das Ergebnis da, ist es gelb markiert (1 von 3). Der Kalkulationsfaktor ist ausgenommen

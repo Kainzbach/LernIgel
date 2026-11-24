@@ -456,7 +456,6 @@ function buildVrHtml(vrItems, lab) {
   const rows = vrItems
     .map(x => {
       RV = false;
-      const mine = (vrByTask[x.v.value !== undefined ? TASKS[cur].id : ''] || [])[vrItems.indexOf(x)] || '';
       const c =
         x.st === 'ok'
           ? `<span class="t-ok">✓</span> ${fmtMax(x.v.value, 5)}`

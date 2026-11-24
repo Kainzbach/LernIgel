@@ -165,7 +165,7 @@ V('Stückpreis aus der Packung bis zum Listenverkaufspreis', { pack: true, noVp:
     steps: [].concat(einkaufVor(c), hkVor(c, 'BP'), verkaufVor(c))
   })
 );
-V('Zielverkaufspreis', { noKr: true }, c => {
+V('Zielverkaufspreis', {}, c => {
   c.kr = 0;
   return vorTask(c, {
     from: 'LEP',

@@ -123,8 +123,7 @@ html[data-theme='dark'] .tile .prog {
 /* Texte und Knöpfe */
 html[data-theme='dark'] .menu .wm,
 html[data-theme='dark'] .menu h2,
-html[data-theme='dark'] .name .l,
-html[data-theme='dark'] .todo h3 {
+html[data-theme='dark'] .name .l {
   color: #58c8e8;
 }
 html[data-theme='dark'] .name .i {
@@ -184,18 +183,15 @@ html[data-theme='dark'] .tasklist .st {
   background: rgba(255, 255, 255, 0.1);
   color: #b4c0cf;
 }
-html[data-theme='dark'] .tasklist .st.done,
 html[data-theme='dark'] .tasklist .st.g {
   background: rgba(60, 190, 110, 0.2);
   color: #6fe08a;
 }
-html[data-theme='dark'] .tasklist .st.mid,
 html[data-theme='dark'] .tasklist .st.y,
 html[data-theme='dark'] .tasklist .st.h {
   background: rgba(240, 190, 60, 0.2);
   color: #f0c860;
 }
-html[data-theme='dark'] .tasklist .st.low,
 html[data-theme='dark'] .tasklist .st.r {
   background: rgba(240, 90, 80, 0.2);
   color: #ff8a80;
@@ -291,8 +287,7 @@ html[data-theme='dark'] .kz-sub {
 html[data-theme='dark'] .sheet input,
 html[data-theme='dark'] .sheet select,
 html[data-theme='dark'] .kz input,
-html[data-theme='dark'] .vr-in input,
-html[data-theme='dark'] #nr-text {
+html[data-theme='dark'] .vr-in input {
   background: #121820;
   color: var(--ink);
   border-color: #3f4b5c;

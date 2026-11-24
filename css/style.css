@@ -391,9 +391,6 @@ button.btn.small {
   padding: 6px 12px;
   font-size: 0.88rem;
 }
-.spacer {
-  flex: 1;
-}
 
 .result {
   display: none;
@@ -1038,72 +1035,9 @@ table.res {
     white-space: normal;
   }
 }
-#nr-text {
-  width: 100%;
-  font: inherit;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  resize: vertical;
-  min-height: 90px;
-  background: #fff;
-  color: var(--ink);
-}
-.nr-hint {
-  margin: 8px 0 0;
-  font-size: 0.8rem;
-}
-.nr-err {
-  margin: 8px 0 0;
-  color: var(--bad);
-  font-weight: 600;
-}
 table.way td:first-child {
   width: 34%;
   vertical-align: top;
-}
-.partbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 12px;
-}
-.partbar .pb {
-  font: inherit;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--card);
-  color: var(--ink);
-  cursor: pointer;
-  font-size: 0.9rem;
-  text-align: left;
-}
-.partbar .pb b {
-  color: var(--accent);
-}
-.partbar .pb span {
-  color: var(--muted);
-  font-size: 0.8rem;
-}
-.partbar .pb.filled {
-  border-color: #9ccbb0;
-  background: #f2faf5;
-}
-.partbar .pb.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent) inset;
-}
-@media (max-width: 560px) {
-  .partbar .pb span {
-    display: none;
-  }
-  .partbar .pb {
-    padding: 8px 16px;
-  }
 }
 .vr {
   margin: 10px 0;
@@ -1216,9 +1150,6 @@ table.way td:first-child {
 .alt-kw[hidden],
 .alt-tab[hidden] {
   display: none;
-}
-.kwbox .nr-hint {
-  margin: 0 0 8px;
 }
 .kz.kwbox {
   border-top: 0;

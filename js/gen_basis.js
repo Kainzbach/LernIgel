@@ -98,7 +98,6 @@ const hkRueck = c => [
   ['BP', u => up(u('SKP'), -c.hk)],
   ['HK', u => r2(u('SKP') - u('BP'))]
 ];
-const stepsEinkaufVor = c => einkaufVor(c);
 
 /* ---------- Die Aufgabentypen ---------- */
 const GEN = { vorwaerts: [], rueckwaerts: [], komplett: [] };

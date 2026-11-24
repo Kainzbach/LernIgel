@@ -425,22 +425,6 @@ body.is-task {
   background: #eef1f5;
   color: #5d6b7e;
 }
-.tasklist .st.draft {
-  background: #fff4d6;
-  color: #8a5a00;
-}
-.tasklist .st.done {
-  background: #e6f5ec;
-  color: #1d7a3e;
-}
-.tasklist .st.mid {
-  background: #fff4d6;
-  color: #8a5a00;
-}
-.tasklist .st.low {
-  background: #fcebea;
-  color: #b3261e;
-}
 .rand {
   font: inherit;
   font-weight: 700;
@@ -542,15 +526,6 @@ header h1 {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-}
-.todo {
-  width: 100%;
-  max-width: 560px;
-}
-.todo h3 {
-  margin: 6px 0 10px;
-  color: #0e5a86;
-  font-size: 1.05rem;
 }
 .savehint {
   margin: 0;

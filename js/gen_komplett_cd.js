@@ -118,7 +118,6 @@ function KC(title, o) {
       steps,
       kzFirst: true,
       pre: [],
-      noVpOk: true,
       parts: [
         {
           label: 'a)',

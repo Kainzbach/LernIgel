@@ -10,7 +10,6 @@ const KZNAME = {
   gwzK: 'den Gewinnzuschlagssatz'
 };
 const joinUnd = a => (a.length > 1 ? a.slice(0, -1).join(', ') + ' und ' + a[a.length - 1] : a[0]);
-const letter = i => String.fromCharCode(97 + i) + ')';
 const kzAsk = ids =>
   joinUnd(ids.map(k => KZNAME[k] + (KZ[k].dec != null ? ' (' + KZ[k].dec + ' Nachkommastellen)' : '')));
 const kzTitleOf = ids => joinUnd(ids.map(k => KZ[k].title));
