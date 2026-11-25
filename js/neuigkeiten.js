@@ -8,7 +8,7 @@ const NEUES = [
     v: '1.3.4',
     punkte: [
       'Kostenarten: Über den Knopf-Paaren steht jetzt, was Sie jeweils wählen („Variable oder fixe Kosten?“ und „Einzel- oder Gemeinkosten?“).',
-      'Kostenarten: Ein nicht ganz richtiges Beispiel wird als Ganzes markiert, man sieht nicht mehr, welche Hälfte stimmt.',
+      'Kostenarten: Jedes Beispiel wird als Ganzes markiert, grün (richtig), rot-grün gestreift (halb richtig) oder rot (falsch). Man sieht nicht mehr, welche Hälfte stimmt.',
       'Der Zurück-Pfeil in den Themen heißt jetzt „Thema“ statt „Fach“.',
       'Neuer Hinweis: Auf der Startseite und unter jeder Auswertung steht, dass Aufgaben und Lösungen Fehler enthalten können. Einen Fehler melden Sie mit einem Klick als Issue auf GitHub, die Aufgabe wird dabei schon eingetragen.'
     ]

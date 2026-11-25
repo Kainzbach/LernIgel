@@ -276,6 +276,23 @@ html[data-theme='dark'] .lock-note {
     0 1px 0 rgba(255, 255, 255, 0.1) inset;
   color: var(--ink);
 }
+html[data-theme='dark'] .ka-item.ok {
+  border: 1px solid var(--ok);
+  box-shadow: 0 0 0 1px var(--ok);
+  background: linear-gradient(var(--ok-bg), var(--ok-bg)), rgba(28, 34, 44, 0.95);
+}
+html[data-theme='dark'] .ka-item.bad,
+html[data-theme='dark'] .ka-item.empty {
+  border: 1px solid var(--bad);
+  box-shadow: 0 0 0 1px var(--bad);
+  background: linear-gradient(var(--bad-bg), var(--bad-bg)), rgba(28, 34, 44, 0.95);
+}
+html[data-theme='dark'] .ka-item.empty {
+  border-style: dashed;
+}
+html[data-theme='dark'] .ka-item.half {
+  border-color: transparent;
+}
 html[data-theme='dark'] .tnote {
   color: #9fb0c4;
 }

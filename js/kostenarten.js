@@ -59,18 +59,19 @@ function kaItemHtml(id, i, withMarks) {
   const it = kaTask(id).items[i];
   const a = kaGet(id)[i];
   const mk = (withMarks && kaMarks[id] && kaMarks[id][i]) || {};
-  const sym = s => (s === 'ok' ? ' ok' : s === 'bad' ? ' bad' : s === 'empty' ? ' empty' : '');
   const reveal = prog.help[id];
-  // Nicht ganz richtig: das ganze Beispiel wird markiert, damit man nicht sieht, welche Hälfte stimmt
-  const st = !mk.vf ? '' : mk.vf === 'ok' && mk.eg === 'ok' ? 'ok' : mk.vf === 'empty' && mk.eg === 'empty' ? 'empty' : 'bad';
+  // Eine Markierung für das ganze Beispiel (richtig, halb richtig, falsch, leer), damit man nicht sieht, welche Hälfte stimmt
+  const nOk = (mk.vf === 'ok') + (mk.eg === 'ok');
+  const st = !mk.vf ? '' : nOk === 2 ? 'ok' : nOk === 1 ? 'half' : mk.vf === 'empty' && mk.eg === 'empty' ? 'empty' : 'bad';
   let res = '';
   if (withMarks && kaMarks[id] && kaMarks[id][i]) {
-    const wrong = mk.vf !== 'ok' || mk.eg !== 'ok';
+    const wrong = nOk < 2;
+    const lbl = nOk === 1 ? '<span class="t-half">½ teilweise richtig (1 von 2 Punkten)</span>' : `<span class="t-bad">${st === 'empty' ? '✗ nicht ausgefüllt' : '✗ nicht richtig'}</span>`;
     res = wrong
-      ? `<div class="ka-res"><span class="t-bad">${mk.vf === 'empty' || mk.eg === 'empty' ? '✗ nicht ausgefüllt' : '✗ nicht richtig'}</span> ${reveal ? `<span class="muted">Lösung: ${KA_LABEL[it[1]]}, ${KA_LABEL[it[2]]}</span>` : '<button type="button" class="reveal" data-i="' + i + '">aufdecken</button>'}</div>`
+      ? `<div class="ka-res">${lbl} ${reveal ? `<span class="muted">Lösung: ${KA_LABEL[it[1]]}, ${KA_LABEL[it[2]]}</span>` : '<button type="button" class="reveal" data-i="' + i + '">aufdecken</button>'}</div>`
       : '<div class="ka-res"><span class="t-ok">✓ richtig</span></div>';
   }
-  return `<div class="card ka-item" data-i="${i}"><div class="ka-text"><span class="ka-nr">${i + 1}</span><span>${esc(it[0])}</span></div><div class="ka-btns"><div class="ka-grp${sym(st)}" data-g="vf"><div class="ka-lab">Variable oder fixe Kosten?</div>${kaBtn('vf', 'V', a.vf)}${kaBtn('vf', 'F', a.vf)}</div><div class="ka-grp${sym(st)}" data-g="eg"><div class="ka-lab">Einzel- oder Gemeinkosten?</div>${kaBtn('eg', 'EK', a.eg)}${kaBtn('eg', 'GK', a.eg)}</div></div>${res}</div>`;
+  return `<div class="card ka-item${st ? ' ' + st : ''}" data-i="${i}"><div class="ka-text"><span class="ka-nr">${i + 1}</span><span>${esc(it[0])}</span></div><div class="ka-btns"><div class="ka-grp" data-g="vf"><div class="ka-lab">Variable oder fixe Kosten?</div>${kaBtn('vf', 'V', a.vf)}${kaBtn('vf', 'F', a.vf)}</div><div class="ka-grp" data-g="eg"><div class="ka-lab">Einzel- oder Gemeinkosten?</div>${kaBtn('eg', 'EK', a.eg)}${kaBtn('eg', 'GK', a.eg)}</div></div>${res}</div>`;
 }
 let kaCur = null;
 function kaRender() {
@@ -126,7 +127,7 @@ function kaClick(e) {
   // Markierung dieses Beispiels verschwindet, die Gesamtauswertung bleibt bis zum nächsten „Fertig“
   if (kaMarks[kaCur]) delete kaMarks[kaCur][i];
   const card = b.closest('.ka-item');
-  card.querySelectorAll('.ka-grp').forEach(x => x.classList.remove('ok', 'bad', 'empty'));
+  card.classList.remove('ok', 'bad', 'empty', 'half');
   const rs = card.querySelector('.ka-res');
   if (rs) rs.remove();
   const grp = b.closest('.ka-grp');
