@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.3.3 (2026-11-25)
+
+- Neue Adresse: lernigel.de (bisher lernigel.kainzbach.com). Gespeicherte Daten gehören zur Adresse und müssen über „Meine Daten“ gesichert und auf der neuen Adresse geladen werden
+
 ## 1.3.2 (2026-11-25)
 
 - Neue Adresse: lernigel.kainzbach.com (bisher lernen.kainzbach.com). Gespeicherte Daten gehören zur Adresse und müssen über „Meine Daten“ gesichert und auf der neuen Adresse geladen werden
