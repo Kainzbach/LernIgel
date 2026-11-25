@@ -1,6 +1,6 @@
 # LernIgel
 
-Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.2.2, siehe `CHANGELOG.md`.
+Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.3.0, siehe `CHANGELOG.md`.
 
 Läuft im Browser, ohne Konto und ohne Server. Alles bleibt auf Ihrem Gerät.
 
@@ -14,7 +14,8 @@ Eine KI kann Fehler machen. Falsche Aufgaben oder Lösungen können Sie gern üb
 
 ## Was kann es?
 
-- Vier Bereiche: **Vorwärts**, **Rückwärts**, **Kennzahlen** und **Komplettaufgaben** mit zusammen 110 festen Aufgaben, dazu zufällige Aufgaben je Bereich und Kennzahl
+- Thema **Handelskalkulation** mit vier Bereichen: **Vorwärts**, **Rückwärts**, **Kennzahlen** und **Komplettaufgaben** mit zusammen 110 festen Aufgaben, dazu zufällige Aufgaben je Bereich und Kennzahl
+- Thema **Kostenarten** mit 10 Aufgaben: variable und fixe Kosten, Einzel- und Gemeinkosten zuordnen
 - Das Kalkulationsschema (Handelskalkulation) komplett selbst aufschreiben, statt Werte in eine Vorlage einzutragen
 - Auswertung Zeile für Zeile: Bezeichnung, Vorzeichen, Betrag, Reihenfolge; Folgefehler werden nur einmal bestraft
 - Kennzahlen mit eigenem Untermenü je Kennzahl (Kalkulationszuschlag, Kalkulationsfaktor, Handelsspanne, Gewinn in Prozent, Handlungskostenzuschlag, Gewinnzuschlag, durchschnittliche Handelsspanne), je 10 feste Aufgaben und eigener Zufallsknopf; Zähler, Nenner und Ergebnis
@@ -64,7 +65,9 @@ Es werden keine Daten an einen Server gesendet. Bestwerte und Entwürfe liegen n
   - `js/gen_komplett_basis.js`, `gen_komplett_ab.js`, `gen_komplett_cd.js`, `gen_komplett_f.js`: Komplettaufgaben
   - `js/gen_musterweg.js`: Rechenweg unter der Lösung
   - `js/gen_bau.js`: Aufgabe bauen, prüfen, feste und zufällige Aufgaben
-- `js/nav.js`: Menüs, Übersicht, Meine Daten, Igel-Sprüche
+- `js/nav.js`: Menüs, Übersicht, Meine Daten (Sicherungsdatei mit einem Abschnitt je Fach), Igel-Sprüche
+- `js/gen_kostenarten.js` und `js/kostenarten.js`: das Thema Kostenarten (Daten der 10 Aufgaben, Ansicht und Auswertung)
+- `js/neuigkeiten.js`: Fenster „Neu in Version …“ beim ersten Öffnen einer neuen Version (pro Version einen Eintrag ergänzen)
 - `assets/`: Favicon
 - `js/state.js`, `js/render.js`: Zustand und Darstellung
 - `js/evaluate.js`: Auswertung und Punkte

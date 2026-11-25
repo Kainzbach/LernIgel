@@ -284,10 +284,10 @@ function applyLock(t) {
   note.hidden = !locked;
   if (locked) {
     if (!lastScore[t.id]) lastScore[t.id] = makeResult(t);
-    const ra = location.hash.replace(/^#\/?/, '').split('/')[2] || t.area;
-    note.innerHTML = `Diese Zufallsaufgabe ist abgegeben (${best[t.id]} %). <a href="#/ksk/ueben/${ra}">Zu den Aufgaben</a> · <button class="btn small" id="btn-next-rand" type="button">Nächste Zufallsaufgabe</button>`;
+    const ra = location.hash.replace(/^#\/?/, '').split('/')[3] || t.area;
+    note.innerHTML = `Diese Zufallsaufgabe ist abgegeben (${best[t.id]} %). <a href="${HKU}/${ra}">Zu den Aufgaben</a> · <button class="btn small" id="btn-next-rand" type="button">Nächste Zufallsaufgabe</button>`;
     $('btn-next-rand').addEventListener('click', () => {
-      location.hash = '#/ksk/ueben/' + ra + '/' + randomTaskId(ra);
+      location.hash = HKU + '/' + ra + '/' + randomTaskId(ra);
     });
   }
 }

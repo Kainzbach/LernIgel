@@ -39,7 +39,8 @@ function applyTheme() {
 }
 applyTheme();
 if (darkMq && darkMq.addEventListener) darkMq.addEventListener('change', applyTheme);
-const doneCount = () => Object.keys(best).length;
+// Schema-Hilfe: zählt nur Aufgaben der Handelskalkulation (Kostenarten haben kein Schema)
+const doneCount = () => Object.keys(best).filter(id => !/^ka-/.test(id)).length;
 const helpAvailable = () => doneCount() >= HELP_MIN;
 const helpOn = () => settings.help && helpAvailable();
 function saveSettings() {
@@ -59,6 +60,7 @@ function saveProg() {
   } catch (e) {}
 }
 function hasDraft(id) {
+  if (/^ka-/.test(id)) return kaAnswered(id);
   const rows = Object.keys(rowsByTask)
       .filter(k => k === id || k.startsWith(id + '#'))
       .map(k => rowsByTask[k])

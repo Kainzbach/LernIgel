@@ -19,7 +19,13 @@ const AREAS = [
   },
   { id: 'komplett', name: 'Komplettaufgaben', icon: 'layers', tasks: FIXED.komplett }
 ];
+// Adressen: Fach (ksk) → Thema (handelskalkulation, kostenarten) → Üben → Bereich → Aufgabe
+const HKB = '#/ksk/handelskalkulation',
+  HKU = HKB + '/ueben',
+  KAB = '#/ksk/kostenarten',
+  KAU = KAB + '/ueben';
 const ICONS = {
+  tag: '<path d="M4 12V5a1 1 0 0 1 1-1h7l8 8-8 8z"/><circle cx="8.5" cy="8.5" r="1.4"/>',
   book: '<path d="M4 5h6a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h7z"/>',
   check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   arrowR: '<path d="M4 12h15M13 6l6 6-6 6"/>',
@@ -54,6 +60,7 @@ function showMenu(html, small) {
   document.body.className = 'is-menu';
   calcLeave();
   $('v-task').hidden = true;
+  $('v-ka').hidden = true;
   $('v-menu').hidden = false;
   $('menu').className = 'menu' + (small ? ' small' : '');
   const ig = igelMenuHtml();
@@ -75,9 +82,12 @@ const SP_MENU = {
   daten: ['Hier liegt Ihr Stand sicher.']
 };
 function igelMenuHtml() {
-  const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  const p0 = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  const p = p0.filter((x, i) => !(i === 1 && (x === 'handelskalkulation' || x === 'kostenarten')));
   const k =
-    p[0] === 'daten'
+    p0[1] === 'kostenarten' && p0[2] === 'ueben'
+      ? 'liste'
+      : p[0] === 'daten'
       ? 'daten'
       : !p.length
         ? 'start'
@@ -104,6 +114,7 @@ function igelMenuHtml() {
 function showTask() {
   document.body.className = 'is-task';
   $('v-menu').hidden = true;
+  $('v-ka').hidden = true;
   $('v-task').hidden = false;
   calcEnter();
   window.scrollTo(0, 0);
@@ -126,6 +137,41 @@ const saveHint = () =>
   prog.dirty && hasProgress()
     ? '<p class="savehint">Ihr Stand ist noch nicht gesichert. <a href="#/daten">Jetzt sichern</a></p>'
     : '';
+// Sicherungsdatei: ein Abschnitt je Fach. Alle bisherigen Themen gehören zum Fach "ksk".
+// Abschnitte weiterer Fächer, die diese Seite noch nicht kennt, bleiben unverändert erhalten.
+const FREMD_KEY = 'ksk-lernigel-fremd';
+function buildExport() {
+  let fremd = {};
+  try {
+    fremd = JSON.parse(localStorage.getItem(FREMD_KEY) || '{}') || {};
+  } catch (e) {}
+  const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
+  return {
+    app: 'lernigel',
+    v: 3,
+    faecher: Object.assign({}, fremd, { ksk: { best, prog: { help: prog.help }, draft } })
+  };
+}
+// Ältere Dateien (Version 1 und 2) haben best/prog/draft auf oberster Ebene und gelten als Fach "ksk"
+function applyImport(d) {
+  if (!d || d.app !== 'lernigel') return false;
+  let ksk = null;
+  const fremd = {};
+  if (d.faecher && typeof d.faecher === 'object') {
+    Object.keys(d.faecher).forEach(k => {
+      if (k === 'ksk') ksk = d.faecher.ksk;
+      else fremd[k] = d.faecher[k];
+    });
+  } else {
+    ksk = { best: d.best, prog: d.prog, draft: d.draft };
+  }
+  if (!ksk || typeof ksk.best !== 'object' || ksk.best === null) return false;
+  localStorage.setItem(STORE_KEY, JSON.stringify(ksk.best));
+  localStorage.setItem(PROG_KEY, JSON.stringify({ help: (ksk.prog && ksk.prog.help) || {}, dirty: false }));
+  if (ksk.draft) localStorage.setItem(DRAFT_KEY, JSON.stringify(ksk.draft));
+  localStorage.setItem(FREMD_KEY, JSON.stringify(fremd));
+  return true;
+}
 function showData() {
   showMenu(
     `${backHash ? backLink(backHash, 'Zurück') : backLink('#/', 'Start')}<h2>Meine Daten</h2><p class="sub" style="margin:0;max-width:520px">Ihr Stand liegt nur in diesem Browser auf Ihrem Gerät. Sichern Sie ihn als Datei, um ihn auf einem anderen Gerät zu laden oder nach dem Löschen der Browserdaten wiederherzustellen.</p>
@@ -160,13 +206,7 @@ function showData() {
   });
   $('btn-export').addEventListener('click', () => {
     saveDraft();
-    const data = {
-      app: 'lernigel',
-      v: 2,
-      best,
-      prog: { help: prog.help },
-      draft: JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null')
-    };
+    const data = buildExport();
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
     a.download = 'lernigel-stand-' + new Date().toISOString().slice(0, 10) + '.json';
@@ -183,11 +223,7 @@ function showData() {
     const rd = new FileReader();
     rd.onload = () => {
       try {
-        const d = JSON.parse(rd.result);
-        if (!d || d.app !== 'lernigel' || typeof d.best !== 'object') throw 0;
-        localStorage.setItem(STORE_KEY, JSON.stringify(d.best));
-        localStorage.setItem(PROG_KEY, JSON.stringify({ help: (d.prog && d.prog.help) || {}, dirty: false }));
-        if (d.draft) localStorage.setItem(DRAFT_KEY, JSON.stringify(d.draft));
+        if (!applyImport(JSON.parse(rd.result))) throw 0;
         $('data-msg').textContent = 'Stand geladen. Die Seite lädt neu …';
         setTimeout(() => {
           location.hash = '#/';
@@ -252,17 +288,34 @@ function route() {
   }
   if (parts.length === 1) {
     showMenu(
-      `${backLink('#/', 'Start')}<div class="wm-box">${wordmark()}</div><h2>Kaufmännische Steuerung und Kontrolle</h2><div class="tiles">${tileHtml({ href: '#/ksk/ueben', icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`,
+      `${backLink('#/', 'Start')}<div class="wm-box">${wordmark()}</div><h2>Kaufmännische Steuerung und Kontrolle</h2><div class="tiles">${tileHtml({ href: HKB, icon: 'pct', label: 'Handelskalkulation', small: true })}${tileHtml({ href: KAB, icon: 'tag', label: 'Kostenarten' })}</div>${saveHint()}`,
       true
     );
     return;
   }
+  if (parts[1] === 'kostenarten') {
+    showKostenarten(parts);
+    return;
+  }
+  if (parts[1] !== 'handelskalkulation') {
+    location.replace('#/ksk');
+    return;
+  }
+  if (parts.length === 2) {
+    showMenu(
+      `${backLink('#/ksk', 'Fach')}<div class="wm-box">${wordmark()}</div><h2>Handelskalkulation</h2><div class="tiles">${tileHtml({ href: HKU, icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`,
+      true
+    );
+    return;
+  }
+  // ab hier gilt die bisherige Aufteilung (ksk / ueben / Bereich / Aufgabe) ohne die Themenebene
+  parts.splice(1, 1);
   if (parts[1] === 'ueben' && parts.length === 2) {
     const tiles =
       AREAS.map(a => {
         const d = a.tasks.filter(id => best[id] != null).length;
         return tileHtml({
-          href: '#/ksk/ueben/' + a.id,
+          href: HKU + '/' + a.id,
           icon: a.icon,
           label: a.name,
           small: a.name.length > 12,
@@ -270,14 +323,14 @@ function route() {
         });
       }).join('');
     showMenu(
-      `${backLink('#/ksk', 'Fach')}<h2>Was möchten Sie üben?</h2><div class="tiles">${tiles}</div>${saveHint()}`,
+      `${backLink(HKB, 'Handelskalkulation')}<h2>Was möchten Sie üben?</h2><div class="tiles">${tiles}</div>${saveHint()}`,
       true
     );
     return;
   }
   const area = areaOf(parts[2]);
   if (parts[1] !== 'ueben' || !area) {
-    location.replace('#/ksk/ueben');
+    location.replace(HKU);
     return;
   }
   if (parts.length === 3 && area.children) {
@@ -285,7 +338,7 @@ function route() {
       .map(a => {
         const d = a.tasks.filter(id => best[id] != null).length;
         return tileHtml({
-          href: '#/ksk/ueben/' + a.id,
+          href: HKU + '/' + a.id,
           icon: a.icon,
           label: a.name.replace(/(zuschlag|faktor|spanne)$/, '&shy;$1'),
           small: a.name.length > 12,
@@ -295,11 +348,11 @@ function route() {
       .join('');
     const rs = randStats(area.id);
     showMenu(
-      `${backLink('#/ksk/ueben', 'Bereiche')}<h2>${esc(area.name)}</h2><div class="tiles">${tiles}</div><div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe aus allen Kennzahlen</button>${randPanel(rs)}</div>${saveHint()}`,
+      `${backLink(HKU, 'Bereiche')}<h2>${esc(area.name)}</h2><div class="tiles">${tiles}</div><div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe aus allen Kennzahlen</button>${randPanel(rs)}</div>${saveHint()}`,
       true
     );
     $('btn-rand').addEventListener('click', () => {
-      location.hash = '#/ksk/ueben/' + area.id + '/' + randomTaskId(area.id);
+      location.hash = HKU + '/' + area.id + '/' + randomTaskId(area.id);
     });
     return;
   }
@@ -314,8 +367,8 @@ function route() {
     const rs = randStats(area.id);
     showMenu(
       (area.parent
-        ? backLink('#/ksk/ueben/' + area.parent, 'Kennzahlen')
-        : backLink('#/ksk/ueben', 'Bereiche')) +
+        ? backLink(HKU + '/' + area.parent, 'Kennzahlen')
+        : backLink(HKU, 'Bereiche')) +
         `<h2>${esc(area.name)}</h2>` +
         (area.tasks.length
           ? `<ul class="tasklist">${list}</ul>${area.tasks.some(id => prog.help[id]) ? '<p class="legend-h"><span class="st h">↻ gelb</span> mit aufgedeckter Lösung erreicht</p>' : ''}<div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe</button>${randPanel(rs)}</div>`
@@ -326,13 +379,13 @@ function route() {
       .querySelectorAll('.tasklist button')
       .forEach(b =>
         b.addEventListener('click', () => {
-          location.hash = '#/ksk/ueben/' + area.id + '/' + b.dataset.id;
+          location.hash = HKU + '/' + area.id + '/' + b.dataset.id;
         })
       );
     const r = $('btn-rand');
     if (r)
       r.addEventListener('click', () => {
-        location.hash = '#/ksk/ueben/' + area.id + '/' + randomTaskId(area.id);
+        location.hash = HKU + '/' + area.id + '/' + randomTaskId(area.id);
       });
     return;
   }
@@ -345,7 +398,7 @@ function route() {
       (area.children && parts[3].startsWith('z-kz_'))
     )
   ) {
-    location.replace('#/ksk/ueben/' + area.id);
+    location.replace(HKU + '/' + area.id);
     return;
   }
   cur = i;
@@ -359,7 +412,7 @@ function route() {
 }
 $('btn-back').addEventListener('click', () => {
   const p = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
-  location.hash = '#/' + p.slice(0, 3).join('/');
+  location.hash = '#/' + p.slice(0, -1).join('/');
 });
 window.addEventListener('hashchange', route);
 route();

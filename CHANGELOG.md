@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.3.0 (2026-11-24)
+
+- Neues Thema „Kostenarten“ unter Kaufmännische Steuerung und Kontrolle: 10 Aufgaben mit je 10 Beispielen. Pro Beispiel wählen Sie „variable Kosten“ oder „fixe Kosten“ und „Einzelkosten“ oder „Gemeinkosten“ (2 Punkte je Beispiel, Bestwert, Entwurf, Aufdecken der Lösung wie in den anderen Aufgaben). Ohne Taschenrechner
+- Das bisherige Thema heißt jetzt „Handelskalkulation“ (Üben, später Teste dich). Die Adressen heißen `#/ksk/handelskalkulation/ueben/…` und `#/ksk/kostenarten/ueben/…`
+- Meine Daten: Die Sicherungsdatei hat einen Abschnitt je Fach (Version 3). Ältere Dateien lassen sich weiter laden, Abschnitte weiterer Fächer bleiben beim Laden und Sichern erhalten
+- Beim ersten Öffnen einer neuen Version erscheint einmal ein Fenster „Neu in Version …“ mit den Änderungen (nicht beim allerersten Besuch)
+- Die Schema-Hilfe wird nach 5 bearbeiteten Aufgaben der Handelskalkulation freigeschaltet, Kostenarten zählen dafür nicht
+
 ## 1.2.2 (2026-11-24)
 
 - Intern aufgeräumt: ungenutzter Code, ungenutzte Gestaltungsregeln und eine nicht verwendete Bilddatei entfernt. Keine sichtbare Änderung

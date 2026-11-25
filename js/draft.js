@@ -25,6 +25,7 @@ function saveDraft() {
         kz: Object.fromEntries(Object.entries(kz || {}).map(([k, v]) => [k, { z: v.z, n: v.n, s: v.s }]))
       };
     });
+    d.ka = kaDraft();
     localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
   } catch (e) {}
 }
@@ -37,6 +38,7 @@ function loadDraft() {
     const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
     if (!d || !d.tasks) return;
     DRAFT = d;
+    kaLoad(d.ka);
     TASKS.forEach(applyDraftTo);
     if (Number.isInteger(d.cur) && d.cur >= 0 && d.cur < TASKS.length) cur = d.cur;
   } catch (e) {}
