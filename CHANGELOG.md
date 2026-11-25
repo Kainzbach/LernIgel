@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.3.1 (2026-11-25)
+
+- Handelskalkulation: Unter „Was möchten Sie üben?“ gibt es einen Zufallsknopf, der eine Zufallsaufgabe aus Vorwärts, Rückwärts oder Kennzahlen wählt (ohne Komplett). Es gelten die Regeln der Zufallsaufgaben (zählt nur beim ersten Mal)
+
 ## 1.3.0 (2026-11-24)
 
 - Neues Thema „Kostenarten“ unter Kaufmännische Steuerung und Kontrolle: 10 Aufgaben mit je 10 Beispielen. Pro Beispiel wählen Sie „variable Kosten“ oder „fixe Kosten“ und „Einzelkosten“ oder „Gemeinkosten“ (2 Punkte je Beispiel, Bestwert, Entwurf, Aufdecken der Lösung wie in den anderen Aufgaben). Ohne Taschenrechner

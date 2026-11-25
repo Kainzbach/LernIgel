@@ -323,9 +323,14 @@ function route() {
         });
       }).join('');
     showMenu(
-      `${backLink(HKB, 'Handelskalkulation')}<h2>Was möchten Sie üben?</h2><div class="tiles">${tiles}</div>${saveHint()}`,
+      `${backLink(HKB, 'Handelskalkulation')}<h2>Was möchten Sie üben?</h2><div class="tiles">${tiles}</div><div class="randbox"><button class="rand" id="btn-rand">Zufällige Aufgabe aus Vorwärts, Rückwärts und Kennzahlen</button></div>${saveHint()}`,
       true
     );
+    $('btn-rand').addEventListener('click', () => {
+      const ids = ['vorwaerts', 'rueckwaerts', 'kennzahlen'];
+      const ar = ids[Math.floor(Math.random() * ids.length)];
+      location.hash = HKU + '/' + ar + '/' + randomTaskId(ar);
+    });
     return;
   }
   const area = areaOf(parts[2]);
