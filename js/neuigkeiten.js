@@ -8,7 +8,7 @@ const NEUES = [
     v: '1.3.4',
     punkte: [
       'Kostenarten: Über den Knopf-Paaren steht jetzt, was Sie jeweils wählen („Variable oder fixe Kosten?“ und „Einzel- oder Gemeinkosten?“).',
-      'Neuer Hinweis: LernIgel ist ein Übungsprogramm und kann Fehler enthalten. Prüfen Sie bei Zweifeln Ihre Unterlagen.'
+      'Neuer Hinweis: Auf der Startseite und unter jeder Auswertung steht, dass Aufgaben und Lösungen Fehler enthalten können. Einen Fehler melden Sie mit einem Klick als Issue auf GitHub, die Aufgabe wird dabei schon eingetragen.'
     ]
   },
   { v: '1.3.3', punkte: ['Die Seite hat eine neue Adresse: lernigel.de'] },

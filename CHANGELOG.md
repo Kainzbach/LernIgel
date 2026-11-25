@@ -3,7 +3,7 @@
 ## 1.3.4 (2026-11-25)
 
 - Kostenarten: Über jedem Knopf-Paar steht eine Beschriftung („Variable oder fixe Kosten?“, „Einzel- oder Gemeinkosten?“), am PC zusätzlich ein Trennstrich zwischen den Spalten. Der Satz im Aufgabenkopf nennt „je eine Antwort in beiden Gruppen“
-- Neuer Hinweis auf der Startseite und unter jeder Auswertung: LernIgel ist ein Übungsprogramm und kann Fehler enthalten, bei Zweifeln die eigenen Unterlagen prüfen
+- Neuer Hinweis auf der Startseite (grau) und unter jeder Auswertung (klein, rot): Aufgaben und Lösungen können Fehler enthalten. Der Link „Issue auf GitHub“ öffnet ein neues Issue, in das die aktuelle Aufgabe schon eingetragen ist
 
 ## 1.3.3 (2026-11-25)
 

@@ -1289,6 +1289,16 @@ table.way td:first-child {
   font-size: 0.82rem;
   color: var(--muted);
 }
+.hinweis.fehler {
+  margin: 14px 0 0;
+  font-size: 0.8rem;
+  color: var(--bad);
+}
+.hinweis.fehler a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
 /* Fenster „Neu in Version …“ */
 .dialog.neu {
   max-width: 480px;
