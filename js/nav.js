@@ -303,7 +303,7 @@ function route() {
   }
   if (parts.length === 2) {
     showMenu(
-      `${backLink('#/ksk', 'Fach')}<div class="wm-box">${wordmark()}</div><h2>Handelskalkulation</h2><div class="tiles">${tileHtml({ href: HKU, icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`,
+      `${backLink('#/ksk', 'Thema')}<div class="wm-box">${wordmark()}</div><h2>Handelskalkulation</h2><div class="tiles">${tileHtml({ href: HKU, icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`,
       true
     );
     return;

@@ -3,6 +3,9 @@
 ## 1.3.4 (2026-11-25)
 
 - Kostenarten: Über jedem Knopf-Paar steht eine Beschriftung („Variable oder fixe Kosten?“, „Einzel- oder Gemeinkosten?“), am PC zusätzlich ein Trennstrich zwischen den Spalten. Der Satz im Aufgabenkopf nennt „je eine Antwort in beiden Gruppen“
+- Kostenarten: Ein falsches oder halb richtiges Beispiel wird als Ganzes markiert (beide Gruppen), damit man nicht sieht, welche Hälfte stimmt. Die Punkte bleiben (einer je richtiger Antwort)
+- Der Zurück-Pfeil in Handelskalkulation und Kostenarten heißt „Thema“ statt „Fach“
+- Intern: Der Ordner `dist` (gebaute Einzeldatei) gehört nicht ins Repository und wird über `.gitignore` ausgeschlossen
 - Neuer Hinweis auf der Startseite (grau) und unter jeder Auswertung (klein, rot): Aufgaben und Lösungen können Fehler enthalten. Der Link „Issue auf GitHub“ öffnet ein neues Issue, in das die aktuelle Aufgabe schon eingetragen ist
 
 ## 1.3.3 (2026-11-25)

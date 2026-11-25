@@ -61,6 +61,8 @@ function kaItemHtml(id, i, withMarks) {
   const mk = (withMarks && kaMarks[id] && kaMarks[id][i]) || {};
   const sym = s => (s === 'ok' ? ' ok' : s === 'bad' ? ' bad' : s === 'empty' ? ' empty' : '');
   const reveal = prog.help[id];
+  // Nicht ganz richtig: das ganze Beispiel wird markiert, damit man nicht sieht, welche Hälfte stimmt
+  const st = !mk.vf ? '' : mk.vf === 'ok' && mk.eg === 'ok' ? 'ok' : mk.vf === 'empty' && mk.eg === 'empty' ? 'empty' : 'bad';
   let res = '';
   if (withMarks && kaMarks[id] && kaMarks[id][i]) {
     const wrong = mk.vf !== 'ok' || mk.eg !== 'ok';
@@ -68,7 +70,7 @@ function kaItemHtml(id, i, withMarks) {
       ? `<div class="ka-res"><span class="t-bad">${mk.vf === 'empty' || mk.eg === 'empty' ? '✗ nicht ausgefüllt' : '✗ nicht richtig'}</span> ${reveal ? `<span class="muted">Lösung: ${KA_LABEL[it[1]]}, ${KA_LABEL[it[2]]}</span>` : '<button type="button" class="reveal" data-i="' + i + '">aufdecken</button>'}</div>`
       : '<div class="ka-res"><span class="t-ok">✓ richtig</span></div>';
   }
-  return `<div class="card ka-item" data-i="${i}"><div class="ka-text"><span class="ka-nr">${i + 1}</span><span>${esc(it[0])}</span></div><div class="ka-btns"><div class="ka-grp${sym(mk.vf)}" data-g="vf"><div class="ka-lab">Variable oder fixe Kosten?</div>${kaBtn('vf', 'V', a.vf)}${kaBtn('vf', 'F', a.vf)}</div><div class="ka-grp${sym(mk.eg)}" data-g="eg"><div class="ka-lab">Einzel- oder Gemeinkosten?</div>${kaBtn('eg', 'EK', a.eg)}${kaBtn('eg', 'GK', a.eg)}</div></div>${res}</div>`;
+  return `<div class="card ka-item" data-i="${i}"><div class="ka-text"><span class="ka-nr">${i + 1}</span><span>${esc(it[0])}</span></div><div class="ka-btns"><div class="ka-grp${sym(st)}" data-g="vf"><div class="ka-lab">Variable oder fixe Kosten?</div>${kaBtn('vf', 'V', a.vf)}${kaBtn('vf', 'F', a.vf)}</div><div class="ka-grp${sym(st)}" data-g="eg"><div class="ka-lab">Einzel- oder Gemeinkosten?</div>${kaBtn('eg', 'EK', a.eg)}${kaBtn('eg', 'GK', a.eg)}</div></div>${res}</div>`;
 }
 let kaCur = null;
 function kaRender() {
@@ -174,7 +176,7 @@ function showKostenarten(parts) {
   if (parts.length === 2) {
     const d = KA_TASKS.filter(t => best[t.id] != null).length;
     showMenu(
-      `${backLink('#/ksk', 'Fach')}<div class="wm-box">${wordmark()}</div><h2>Kostenarten</h2><div class="tiles">${tileHtml({ href: KAU, icon: 'book', label: 'Üben', tag: d + ' von ' + KA_TASKS.length + ' bearbeitet' })}</div>${saveHint()}`,
+      `${backLink('#/ksk', 'Thema')}<div class="wm-box">${wordmark()}</div><h2>Kostenarten</h2><div class="tiles">${tileHtml({ href: KAU, icon: 'book', label: 'Üben', tag: d + ' von ' + KA_TASKS.length + ' bearbeitet' })}</div>${saveHint()}`,
       true
     );
     return;
