@@ -130,6 +130,7 @@ html[data-theme='dark'] .name .i {
   color: #4fe0b0;
 }
 html[data-theme='dark'] .menu .sub,
+html[data-theme='dark'] .menu .hinweis,
 html[data-theme='dark'] .legend-h {
   color: #9fb0c4;
 }

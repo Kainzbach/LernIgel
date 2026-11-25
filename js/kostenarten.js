@@ -68,7 +68,7 @@ function kaItemHtml(id, i, withMarks) {
       ? `<div class="ka-res"><span class="t-bad">${mk.vf === 'empty' || mk.eg === 'empty' ? '✗ nicht ausgefüllt' : '✗ nicht richtig'}</span> ${reveal ? `<span class="muted">Lösung: ${KA_LABEL[it[1]]}, ${KA_LABEL[it[2]]}</span>` : '<button type="button" class="reveal" data-i="' + i + '">aufdecken</button>'}</div>`
       : '<div class="ka-res"><span class="t-ok">✓ richtig</span></div>';
   }
-  return `<div class="card ka-item" data-i="${i}"><div class="ka-text"><span class="ka-nr">${i + 1}</span><span>${esc(it[0])}</span></div><div class="ka-btns"><div class="ka-grp${sym(mk.vf)}" data-g="vf">${kaBtn('vf', 'V', a.vf)}${kaBtn('vf', 'F', a.vf)}</div><div class="ka-grp${sym(mk.eg)}" data-g="eg">${kaBtn('eg', 'EK', a.eg)}${kaBtn('eg', 'GK', a.eg)}</div></div>${res}</div>`;
+  return `<div class="card ka-item" data-i="${i}"><div class="ka-text"><span class="ka-nr">${i + 1}</span><span>${esc(it[0])}</span></div><div class="ka-btns"><div class="ka-grp${sym(mk.vf)}" data-g="vf"><div class="ka-lab">Variable oder fixe Kosten?</div>${kaBtn('vf', 'V', a.vf)}${kaBtn('vf', 'F', a.vf)}</div><div class="ka-grp${sym(mk.eg)}" data-g="eg"><div class="ka-lab">Einzel- oder Gemeinkosten?</div>${kaBtn('eg', 'EK', a.eg)}${kaBtn('eg', 'GK', a.eg)}</div></div>${res}</div>`;
 }
 let kaCur = null;
 function kaRender() {

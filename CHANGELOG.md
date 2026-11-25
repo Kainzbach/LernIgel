@@ -1,10 +1,15 @@
 # Änderungen
 
+## 1.3.4 (2026-11-25)
+
+- Kostenarten: Über jedem Knopf-Paar steht eine Beschriftung („Variable oder fixe Kosten?“, „Einzel- oder Gemeinkosten?“), am PC zusätzlich ein Trennstrich zwischen den Spalten. Der Satz im Aufgabenkopf nennt „je eine Antwort in beiden Gruppen“
+- Neuer Hinweis auf der Startseite und unter jeder Auswertung: LernIgel ist ein Übungsprogramm und kann Fehler enthalten, bei Zweifeln die eigenen Unterlagen prüfen
+
 ## 1.3.3 (2026-11-25)
 
 - Neue Adresse: lernigel.de (bisher lernigel.kainzbach.com). Gespeicherte Daten gehören zur Adresse und müssen über „Meine Daten“ gesichert und auf der neuen Adresse geladen werden
 
-## 1.3.2 (2026-11-25)
+## 1.3.2 (2026-11-25, nicht veröffentlicht, ersetzt durch 1.3.3)
 
 - Neue Adresse: lernigel.kainzbach.com (bisher lernen.kainzbach.com). Gespeicherte Daten gehören zur Adresse und müssen über „Meine Daten“ gesichert und auf der neuen Adresse geladen werden
 

@@ -4,6 +4,13 @@
    ===================================================================== */
 const NEU_KEY = 'ksk-lernigel-version';
 const NEUES = [
+  {
+    v: '1.3.4',
+    punkte: [
+      'Kostenarten: Über den Knopf-Paaren steht jetzt, was Sie jeweils wählen („Variable oder fixe Kosten?“ und „Einzel- oder Gemeinkosten?“).',
+      'Neuer Hinweis: LernIgel ist ein Übungsprogramm und kann Fehler enthalten. Prüfen Sie bei Zweifeln Ihre Unterlagen.'
+    ]
+  },
   { v: '1.3.3', punkte: ['Die Seite hat eine neue Adresse: lernigel.de'] },
   { v: '1.3.2', punkte: ['Die Seite hat eine neue Adresse: lernigel.kainzbach.com'] },
   {

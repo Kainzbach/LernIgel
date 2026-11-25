@@ -308,6 +308,13 @@ body.is-task {
   color: #3b6f8a;
   font-size: 1rem;
 }
+.menu .hinweis {
+  margin: 0;
+  max-width: 34em;
+  text-align: center;
+  color: #3b6f8a;
+  font-size: 0.85rem;
+}
 .menu .nav-top {
   align-self: stretch;
   display: flex;

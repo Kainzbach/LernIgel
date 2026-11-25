@@ -282,7 +282,7 @@ function route() {
   }
   if (parts[0] !== 'ksk') {
     showMenu(
-      `<div class="wm-box">${wordmark()}</div><p class="sub">Kostenlos üben, ohne Konto</p><div class="tiles">${tileHtml({ href: '#/ksk', icon: 'coin', label: 'Kaufmännische Steuerung und Kontrolle', small: true })}</div>${saveHint()}<a class="linkbtn" href="#/daten">Meine Daten</a>`
+      `<div class="wm-box">${wordmark()}</div><p class="sub">Kostenlos üben, ohne Konto</p><div class="tiles">${tileHtml({ href: '#/ksk', icon: 'coin', label: 'Kaufmännische Steuerung und Kontrolle', small: true })}</div>${saveHint()}<a class="linkbtn" href="#/daten">Meine Daten</a><p class="hinweis">Hinweis: LernIgel ist ein Übungsprogramm und kann Fehler enthalten. Verlassen Sie sich nicht allein darauf, und prüfen Sie bei Zweifeln Ihre Unterlagen oder fragen Sie Ihre Lehrkraft.</p>`
     );
     return;
   }

@@ -1210,6 +1210,12 @@ table.way td:first-child {
   border: 2px solid transparent;
   border-radius: 12px;
 }
+.ka-lab {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding: 2px 2px 0;
+}
 .ka-b {
   font: inherit;
   font-size: 0.92rem;
@@ -1260,10 +1266,28 @@ table.way td:first-child {
   }
   .ka-btns {
     grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .ka-grp[data-g='eg'] {
+    position: relative;
+  }
+  .ka-grp[data-g='eg']::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: var(--line);
   }
   .ka-grp {
     grid-template-columns: 1fr;
   }
+}
+.hinweis {
+  margin: 12px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 /* Fenster „Neu in Version …“ */
 .dialog.neu {
