@@ -4,6 +4,7 @@
    ===================================================================== */
 const NEU_KEY = 'ksk-lernigel-version';
 const NEUES = [
+  { v: '1.3.2', punkte: ['Die Seite hat eine neue Adresse: lernigel.kainzbach.com'] },
   {
     v: '1.3.1',
     punkte: ['Handelskalkulation: Unter „Was möchten Sie üben?“ gibt es jetzt einen Zufallsknopf. Er wählt eine Aufgabe aus Vorwärts, Rückwärts und Kennzahlen.']
