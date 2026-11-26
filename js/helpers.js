@@ -6,21 +6,16 @@ const TOL = 0.01; // erlaubte Abweichung in Euro (überall)
 const WEAK = { Handlungskosten: 'HK', HK: 'HK', Gewinn: 'G', G: 'G' };
 // Diese Schreibweisen zählen voll (Namenspunkt), die Kürzel HK und G bleiben schwach
 const WEAK_FULL = { Handlungskosten: 1, Gewinn: 1 };
-const VERSION = '1.3.4';
+const VERSION = '1.4.0';
 const STORE_KEY = 'ksk-lernapp-best';
 const $ = id => document.getElementById(id);
-// Hinweis in der Auswertung: Fehler melden, Link zu einem neuen GitHub-Issue mit der aktuellen Aufgabe vorbefüllt
+// Hinweis unter den Aufgaben: Fehler melden (öffnet das Meldefenster, siehe melden.js)
 const ISSUE_URL = 'https://github.com/Kainzbach/LernIgel/issues/new';
-function fehlerHinweisHtml(wo) {
-  const q = new URLSearchParams({
-    title: 'Fehler in Aufgabe: ' + wo,
-    body: 'Aufgabe: ' + wo + '\nSeite: ' + location.href + '\n\nWas stimmt nicht? (gern mit Screenshot)\n'
-  });
+function fehlerHinweisHtml() {
   return (
     'Hinweis: Aufgaben und Lösungen können Fehler enthalten und sind nicht unbedingt richtig. ' +
-    'Wenn Sie unsicher sind, prüfen Sie es bitte nach. Haben Sie einen Fehler gefunden, melden Sie ihn gern als ' +
-    '<a href="' + ISSUE_URL + '?' + q.toString().replace(/&/g, '&amp;') + '" target="_blank" rel="noopener">Issue auf GitHub</a>' +
-    ' (am besten mit Screenshot). Die Aufgabe wird dabei schon eingetragen.'
+    'Wenn Sie unsicher sind, prüfen Sie es bitte nach. Fehler gefunden? ' +
+    '<a href="#" data-melden="fehler">Melden</a>'
   );
 }
 const esc = s =>

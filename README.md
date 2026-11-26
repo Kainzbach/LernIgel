@@ -1,6 +1,6 @@
 # LernIgel
 
-Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.3.4, siehe `CHANGELOG.md`.
+Kostenlose Lernplattform zum Üben und Testen. Aktuell: **Kaufmännische Steuerung und Kontrolle (KSK)** mit dem Kalkulationstrainer. Version 1.4.0, siehe `CHANGELOG.md`.
 
 Läuft im Browser, ohne Konto und ohne Server. Alles bleibt auf Ihrem Gerät.
 
@@ -68,6 +68,7 @@ Es werden keine Daten an einen Server gesendet. Bestwerte und Entwürfe liegen n
 - `js/nav.js`: Menüs, Übersicht, Meine Daten (Sicherungsdatei mit einem Abschnitt je Fach), Igel-Sprüche
 - `js/gen_kostenarten.js` und `js/kostenarten.js`: das Thema Kostenarten (Daten der 10 Aufgaben, Ansicht und Auswertung)
 - `js/neuigkeiten.js`: Fenster „Neu in Version …“ beim ersten Öffnen einer neuen Version (pro Version einen Eintrag ergänzen)
+- `js/melden.js`: Knopf und Fenster „Melden“ (Fehler oder Wunsch per Mail, GitHub oder Kopieren, mit Kennung und Angaben nach Wahl)
 - `assets/`: Favicon
 - `js/state.js`, `js/render.js`: Zustand und Darstellung
 - `js/evaluate.js`: Auswertung und Punkte

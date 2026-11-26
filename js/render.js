@@ -323,9 +323,7 @@ function renderResult() {
     hn.textContent =
       'Falsche Zeilen zeigen die Lösung erst nach einem Klick auf „aufdecken“. Wenn Sie eine Lösung aufdecken, zählen spätere Verbesserungen weiter, werden aber gelb mit ↻ markiert.';
     $('res-notes').innerHTML = res.notesHtml;
-    $('res-fehler').innerHTML = fehlerHinweisHtml(
-      'Handelskalkulation' + (areaOf(t.area) ? ', ' + areaOf(t.area).name : '') + ', ' + t.title + ' (' + t.id + ')'
-    );
+    $('res-fehler').innerHTML = fehlerHinweisHtml();
   }
 }
 // Text mit Teilaufgaben: "a) ..." als Block mit hängendem Einzug, graue Hinweise (▸) gehören zum Teil

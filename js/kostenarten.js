@@ -92,7 +92,7 @@ function kaRenderResult() {
     : '';
   $('ka-help').textContent = help;
   $('ka-help').hidden = !help;
-  $('ka-fehler').innerHTML = fehlerHinweisHtml('Kostenarten, ' + kaTask(kaCur).title + ' (' + kaCur + ')');
+  $('ka-fehler').innerHTML = fehlerHinweisHtml();
 }
 const kaLast = {};
 function showKaTask(id) {

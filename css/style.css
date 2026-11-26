@@ -1344,3 +1344,158 @@ table.way td:first-child {
 .dialog.neu li {
   margin: 0 0 6px;
 }
+
+/* Melden (js/melden.js) */
+.mel-btn {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 40;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+.mel-btn:hover,
+.mel-btn:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.mel-btn.hide {
+  display: none;
+}
+.calc.show ~ .mel-btn {
+  bottom: calc(var(--calc-h, 340px) + 28px);
+}
+.dialog.mel {
+  max-width: 640px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+}
+.mel h2 {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mel .mel-x {
+  font: inherit;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.mel .mel-q {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 14px 0 6px;
+}
+.mel .mel-opts label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+.mel .mel-opts label.on {
+  border-color: var(--accent);
+  background: var(--neutral-bg);
+}
+.mel .mel-opts input {
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+.mel .mel-opts small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.mel .mel-art {
+  display: flex;
+  gap: 8px;
+}
+.mel .mel-art label {
+  flex: 1;
+  margin-bottom: 0;
+}
+.mel .mel-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 6px 2px;
+  line-height: 1.4;
+}
+.mel .mel-priv {
+  margin-top: 12px;
+}
+.mel textarea {
+  width: 100%;
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+  resize: vertical;
+}
+.mel .mel-cnt {
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.mel .mel-pv {
+  background: var(--neutral-bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.mel .mel-red {
+  color: var(--bad);
+  font-weight: 600;
+}
+.mel .mel-bt {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.mel .mel-bt .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.mel-wo {
+  z-index: 60;
+}
+.dialog.mel-warn {
+  border: 2px solid var(--bad);
+  background: linear-gradient(var(--bad-bg), var(--bad-bg)), var(--card);
+}
+.mel-warn h2 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  color: var(--bad);
+}
+.mel-warn .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

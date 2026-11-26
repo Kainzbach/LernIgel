@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.4.0 (2026-11-26)
+
+- Neu: Der Knopf „Melden“ (unten rechts, auf jeder Seite; bei offenem Taschenrechner darüber, am Handy beim Tippen ausgeblendet) öffnet ein Fenster, mit dem man einen Fehler oder einen Wunsch melden kann. Die Meldung geht per Mail an support@lernigel.de, als Issue auf GitHub oder als kopierter Text
+- Im Fenster wählt man Fehler oder Wunsch und die Menge der Angaben: Keine (nur die Version), Standard (Seite, Aufgabe, eigene Eingaben, Version, Fenstergröße, Hell/Dunkel, Browser, Betriebssystem) oder Alles (zusätzlich Gerätemodell, Sprache, Zeitzone, Bildschirm, Pixeldichte, Touch, Online-Status, Verbindungstyp, Arbeitsspeicher, Prozessorkerne). Gerätemodell, Sprache und Zeitzone sind rot markiert. Bei „Keine“ erscheint ein rotes Fenster, das 2 Sekunden gesperrt ist
+- Jede Meldung bekommt eine Kennung (F oder W, Datum, drei Buchstaben, z. B. F261126-KTP). Der Betreff lautet „Fehler: F261126-KTP; v.1.4.0“. Der eigene Text ist auf 1000 Zeichen begrenzt, die Angaben werden nicht gekürzt. Ist ein Mail- oder GitHub-Link zu lang, ist der Knopf ausgegraut und der Text lässt sich kopieren
+- Der Hinweis unter den Aufgaben (Handelskalkulation und Kostenarten) verweist nicht mehr auf GitHub, sondern öffnet das Meldefenster („Fehler gefunden? Melden“)
+- Intern: Neue Datei `js/melden.js`
+
 ## 1.3.4 (2026-11-25)
 
 - Kostenarten: Über jedem Knopf-Paar steht eine Beschriftung („Variable oder fixe Kosten?“, „Einzel- oder Gemeinkosten?“), am PC zusätzlich ein Trennstrich zwischen den Spalten. Der Satz im Aufgabenkopf nennt „je eine Antwort in beiden Gruppen“

@@ -5,6 +5,14 @@
 const NEU_KEY = 'ksk-lernigel-version';
 const NEUES = [
   {
+    v: '1.4.0',
+    punkte: [
+      'Neu: Der Knopf „Melden“ unten rechts gibt es auf jeder Seite. Damit melden Sie einen Fehler oder teilen einen Wunsch mit, per Mail, als GitHub-Issue oder als kopierten Text.',
+      'Sie wählen, wie viele Angaben mitgeschickt werden (Keine, Standard oder Alles). Die Seite und die Aufgabe werden schon eingetragen, und Sie sehen vor dem Senden, was mitgeht.',
+      'Der Hinweis unter den Aufgaben öffnet jetzt dieses Fenster („Fehler gefunden? Melden“).'
+    ]
+  },
+  {
     v: '1.3.4',
     punkte: [
       'Kostenarten: Über den Knopf-Paaren steht jetzt, was Sie jeweils wählen („Variable oder fixe Kosten?“ und „Einzel- oder Gemeinkosten?“).',
