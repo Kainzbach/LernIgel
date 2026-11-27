@@ -1,5 +1,10 @@
 # Änderungen
 
+## 1.4.1 (2026-11-27)
+
+- Melden: Bei Kostenarten stehen in den Eingaben nur noch die beantworteten Beispiele (statt zehn Einträgen mit Strichen)
+- Melden: Die Browser-Zeile steht jetzt als letzte Angabe, weil sie die längste ist
+
 ## 1.4.0 (2026-11-26)
 
 - Neu: Der Knopf „Melden“ (unten rechts, auf jeder Seite; bei offenem Taschenrechner darüber, am Handy beim Tippen ausgeblendet) öffnet ein Fenster, mit dem man einen Fehler oder einen Wunsch melden kann. Die Meldung geht per Mail an support@lernigel.de, als Issue auf GitHub oder als kopierter Text

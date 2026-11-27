@@ -59,8 +59,10 @@ function melHkEingaben(id) {
   return out.join('\n');
 }
 function melKaEingaben(id) {
+  // nur beantwortete Beispiele; ein halb beantwortetes zeigt für die fehlende Hälfte einen Strich
   return kaGet(id)
-    .map((a, i) => i + 1 + ': ' + (a.vf || '–') + '/' + (a.eg || '–'))
+    .map((a, i) => (a.vf || a.eg ? i + 1 + ': ' + (a.vf || '–') + '/' + (a.eg || '–') : ''))
+    .filter(Boolean)
     .join(' · ');
 }
 // Wo bin ich gerade? Seite, Aufgabe, Status und Eingaben
@@ -121,17 +123,17 @@ function melZeilen() {
     ua = n.userAgent || '',
     c = mel.ctx,
     lv = MEL_LEVELS[mel.level].id;
+  const browser = { t: 'Browser: ' + ua };
   const z = [{ t: 'Kennung: ' + melKennung() }, { t: 'Version: v.' + VERSION }];
   if (lv === 'keine') return z;
   const dark = document.documentElement.dataset.theme === 'dark';
   z.push({ t: 'Seite: ' + c.wo });
   z.push({ t: 'Aufgabe: ' + c.aufgabe + ' · Status: ' + c.status });
   z.push({ t: 'Fenster: ' + innerWidth + ' × ' + innerHeight + ' · ' + (dark ? 'Dunkel' : 'Hell') });
-  z.push({ t: 'Browser: ' + ua });
   z.push({ t: 'Betriebssystem: ' + melBetriebssystem(ua) });
   if (c.aufgabe !== '–') z.push({ t: 'Eingaben: ' + (c.eingaben ? (c.eingaben.indexOf('\n') >= 0 ? '\n' : '') + c.eingaben : 'keine') });
   z.push({ t: 'Adresse: ' + c.hash });
-  if (lv === 'standard') return z;
+  if (lv === 'standard') return z.concat([browser]);
   const cn = n.connection || {};
   z.push({ t: 'Gerätemodell: ' + mel.model, red: true });
   z.push({ t: 'Sprache: ' + (n.language || '–'), red: true });
@@ -148,7 +150,7 @@ function melZeilen() {
     t:
       'Online: ' + (n.onLine === false ? 'nein' : 'ja') + ' · Verbindung: ' + (cn.effectiveType || '–') + ' · Arbeitsspeicher: ' + (n.deviceMemory ? '≥ ' + n.deviceMemory + ' GB' : '–') + ' · Kerne: ' + (n.hardwareConcurrency || '–')
   });
-  return z;
+  return z.concat([browser]);
 }
 function melKoerper() {
   return mel.text.trim() + '\n\n—\n' + melZeilen().map(x => x.t).join('\n');
