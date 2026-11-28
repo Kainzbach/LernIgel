@@ -1,6 +1,8 @@
 // Baut aus index.html + css/ + js/ eine einzelne Datei (dist/lernigel-einzeldatei.html),
 // z. B. zum Verschicken per E-Mail. Aufruf: node build.js
 const fs = require('fs'), path = require('path');
+const nf = require('./check-names')();
+if (nf.length) { console.error('Namensprüfung FEHLER:\n' + nf.join('\n')); process.exit(1); }
 let html = fs.readFileSync('index.html', 'utf8');
 html = html.replace(/<link rel="stylesheet" href="([^"?]+)(?:\?[^"]*)?">/g, (_, f) => '<style>\n' + fs.readFileSync(f, 'utf8') + '</style>');
 let scripts = [];

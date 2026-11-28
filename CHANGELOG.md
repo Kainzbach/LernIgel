@@ -1,5 +1,12 @@
 # Änderungen
 
+## 1.5.2 (2026-11-28)
+
+- Lernen › Einführung: Deutlich mehr Theorie: Ziel der Kalkulation, die vier Stufen mit allen Zeilen, Lesen der Tabelle (Zeichen, Prozentspalten, Vertreterprovision), die drei Richtungen als Karten mit Gegeben/Gesucht und Knopf zum Schema, Tabelle mit Signalwörtern
+- Lernen: Die Vorzeichen stehen ohne Kreis, größer und in Farbe. Jede Zeile hat links einen farbigen Streifen (= neutral, + grün, − gelb)
+- Kennzahlen: „Formelblatt als PDF“ in der Erklärung springt zum Kasten mit der Wahl Hell oder Dunkel, „Zurück zur Kennzahl“ springt zurück. Der Kasten ist am Handy übersichtlicher (zwei Karten mit je zwei Knöpfen)
+- Intern: Neue Datei `check-names.js`. Beim Bauen (`node build.js`) wird geprüft, dass die Namen der Zeilen auf den Lernen-Seiten zu den Schreibweisen im Schema passen. Bei Abweichung bricht der Build ab
+
 ## 1.5.1 (2026-11-28)
 
 - Lernen: Die Beispieltabelle unter „Beispiele“ scrollt am Handy nicht mehr zur Seite (Spalte „Bezeichnung“ und „Gerechnet“ entfallen dort, Beträge stehen in einer Zeile)

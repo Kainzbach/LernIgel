@@ -194,6 +194,7 @@ function lnSign(form, k) {
   if (form === 'rueckwaerts') return s === '+' ? '−' : s === '-' ? '+' : '=';
   return s === '-' ? '−' : s;
 }
+const lnSc = s => (s === '=' ? 'e' : s === '+' ? 'p' : 'm');
 const lnSg = s => `<span class="ln-sg ${s === '=' ? 'e' : s === '+' ? 'p' : 'm'}" aria-hidden="true">${s}</span>`;
 function lnInfo(b, k) {
   const d = lnDirOf(b.form, k);
@@ -231,9 +232,9 @@ function lnTable(b, hover) {
   const diff = b.form === 'differenz';
   let h = `<table class="ln-t"><thead><tr><th class="vz">VZ</th><th class="l">Bezeichnung</th><th class="l">Abk.</th><th>%</th><th>%</th><th>Betrag in €</th>${diff ? '<th class="l">Gerechnet</th>' : ''}</tr></thead><tbody>`;
   rows.forEach(r => {
-    h += `<tr${hover ? ` tabindex="0" data-k="${r.k}"` : ''} class="${r.sum ? 'sum' : ''}${r.dir === 'g' ? ' hl' : ''}"><td class="vz">${lnSg(r.sign)}</td><td class="l">${r.name}</td><td class="ab">${r.k}</td><td>${r.p1}</td><td>${r.p2}</td><td class="am">${r.amt}</td>${diff ? `<td class="w">${lnDirTxt[r.dir]}</td>` : ''}</tr>`;
+    h += `<tr${hover ? ` tabindex="0" data-k="${r.k}"` : ''} class="s-${lnSc(r.sign)}${r.sum ? ' sum' : ''}${r.dir === 'g' ? ' hl' : ''}"><td class="vz">${lnSg(r.sign)}</td><td class="l">${r.name}</td><td class="ab">${r.k}</td><td>${r.p1}</td><td>${r.p2}</td><td class="am">${r.amt}</td>${diff ? `<td class="w">${lnDirTxt[r.dir]}</td>` : ''}</tr>`;
     if (r.k === 'KS' && lnVpZeile(b))
-      h += `<tr class="opt"><td class="vz">${lnSg(lnSign(b.form, 'VP'))}</td><td class="l">Vertreterprovision <small>(nur angeben, wenn sie vorkommt)</small></td><td class="ab">VP</td><td></td><td></td><td></td>${diff ? '<td></td>' : ''}</tr>`;
+      h += `<tr class="opt s-${lnSc(lnSign(b.form, 'VP'))}"><td class="vz">${lnSg(lnSign(b.form, 'VP'))}</td><td class="l">Vertreterprovision <small>(nur angeben, wenn sie vorkommt)</small></td><td class="ab">VP</td><td></td><td></td><td></td>${diff ? '<td></td>' : ''}</tr>`;
   });
   return h + '</tbody></table>';
 }
@@ -243,9 +244,9 @@ function lnCards(b) {
   rows.forEach(r => {
     const tag = b.form === 'differenz' ? `<small class="${r.dir === 'v' ? 'up' : r.dir === 'r' ? 'dn' : ''}">${r.dir === 'v' ? '↓ von oben gerechnet' : r.dir === 'r' ? '↑ von unten gerechnet' : '= BVP − SKP'}</small>` : '';
     const pc = [r.p1, r.p2].filter(Boolean).map(x => x + ' %').join(' | ');
-    h += `<div class="ln-card${r.dir === 'g' ? ' hl' : ''}${lnState.card === b.form + r.k ? ' open' : ''}" data-ln-card="${b.form + r.k}"><button class="ln-ch" type="button" aria-expanded="${lnState.card === b.form + r.k}" data-ln="card" data-id="${b.form + r.k}">${lnSg(r.sign)}<span class="nm${r.sum ? ' b' : ''}">${r.name} (${r.k})${tag}${pc ? `<small class="pc">${pc}</small>` : ''}</span><span class="am">${r.amt}</span><span class="chev" aria-hidden="true"></span></button><div class="ln-ex">${r.info}</div></div>`;
+    h += `<div class="ln-card s-${lnSc(r.sign)}${r.dir === 'g' ? ' hl' : ''}${lnState.card === b.form + r.k ? ' open' : ''}" data-ln-card="${b.form + r.k}"><button class="ln-ch" type="button" aria-expanded="${lnState.card === b.form + r.k}" data-ln="card" data-id="${b.form + r.k}">${lnSg(r.sign)}<span class="nm${r.sum ? ' b' : ''}">${r.name} (${r.k})${tag}${pc ? `<small class="pc">${pc}</small>` : ''}</span><span class="am">${r.amt}</span><span class="chev" aria-hidden="true"></span></button><div class="ln-ex">${r.info}</div></div>`;
     if (r.k === 'KS' && lnVpZeile(b))
-      h += `<div class="ln-card opt"><div class="ln-ch static">${lnSg(lnSign(b.form, 'VP'))}<span class="nm">Vertreterprovision (VP)<small>nur angeben, wenn sie vorkommt</small></span></div></div>`;
+      h += `<div class="ln-card opt s-${lnSc(lnSign(b.form, 'VP'))}"><div class="ln-ch static">${lnSg(lnSign(b.form, 'VP'))}<span class="nm">Vertreterprovision (VP)<small>nur angeben, wenn sie vorkommt</small></span></div></div>`;
   });
   return h + '</div>';
 }
@@ -292,24 +293,43 @@ function lnSchemaHtml(form) {
 
 /* ---------- Einführung ---------- */
 function lnIntroHtml() {
-  const cards = [
-    ['1 Einkauf', 'Was zahlt der Händler wirklich?', 'Bezugspreis', 'Listenpreis minus Rabatt und Skonto, plus Lieferkosten.'],
-    ['2 Kosten', 'Was kostet der Betrieb?', 'Selbstkostenpreis', 'Miete, Löhne und Strom werden auf die Ware verteilt.'],
-    ['3 Gewinn', 'Was soll übrig bleiben?', 'Barverkaufspreis', 'Selbstkostenpreis plus Gewinn: Davon lebt der Händler.'],
-    ['4 Kunde', 'Was sieht der Kunde?', 'Listenverkaufspreis', 'Der Preis enthält Skonto und Rabatt, die der Kunde abziehen darf.']
+  const stufen = [
+    ['1 Einkauf', 'Bezugspreis (BP)', 'Was zahlt der Händler wirklich?',
+      'Der Lieferant nennt einen <b>Listeneinkaufspreis (LEP)</b>. Davon zieht der Händler den <b>Liefererrabatt (LR)</b> ab, das ergibt den <b>Zieleinkaufspreis (ZEP)</b>. Zahlt er schnell, zieht er noch das <b>Liefererskonto (LS)</b> ab, das ergibt den <b>Bareinkaufspreis (BEP)</b>. Dazu kommen die <b>Bezugskosten (BZK)</b>, zum Beispiel Fracht und Verpackung. Das Ergebnis ist der <b>Bezugspreis (BP)</b>: Das hat die Ware den Händler tatsächlich gekostet.'],
+    ['2 Kosten', 'Selbstkostenpreis (SKP)', 'Was kostet der Betrieb?',
+      'Neben der Ware entstehen Kosten, die sich keiner Ware einzeln zuordnen lassen: Miete, Löhne, Strom, Werbung. Sie heißen <b>Handlungskosten (HK)</b> und werden als Prozentsatz auf den Bezugspreis aufgeschlagen (Handlungskostenzuschlag). Das Ergebnis ist der <b>Selbstkostenpreis (SKP)</b>: alles, was der Händler für diese Ware ausgibt.'],
+    ['3 Gewinn', 'Barverkaufspreis (BVP)', 'Was soll übrig bleiben?',
+      'Auf den Selbstkostenpreis schlägt der Händler seinen <b>Gewinn (G)</b> als Prozentsatz auf (Gewinnzuschlag). Das Ergebnis ist der <b>Barverkaufspreis (BVP)</b>. Davon lebt der Betrieb, denn er deckt die Kosten und lässt Gewinn übrig.'],
+    ['4 Kunde', 'Listenverkaufspreis (LVP)', 'Was sieht der Kunde?',
+      'Dem Kunden werden <b>Kundenskonto (KS)</b> und <b>Kundenrabatt (KR)</b> gewährt, in manchen Aufgaben zusätzlich eine <b>Vertreterprovision (VP)</b>. Die Zeilen heißen <b>Zielverkaufspreis (ZVP)</b> und am Ende <b>Listenverkaufspreis (LVP)</b>: der Preis, der im Katalog steht. Skonto, Rabatt und Provision beziehen sich auf den <b>größeren</b> Wert (ZVP bzw. LVP). Deshalb wird hier durch (100 % − Prozentsatz) geteilt, zum Beispiel BVP ÷ 0,98 bei 2 % Skonto.']
+  ];
+  const rich = [
+    ['Vorwärts', 'Gegeben: Listeneinkaufspreis und alle Prozentsätze.', 'Gesucht: Listenverkaufspreis.', 'Sie rechnen von oben nach unten, vom Einkauf zum Kunden.', 'Frage in der Aufgabe: „Zu welchem Listenverkaufspreis muss angeboten werden?“', 'vorwaerts'],
+    ['Rückwärts', 'Gegeben: Listenverkaufspreis (der Preis, den der Markt zahlt) und alle Prozentsätze.', 'Gesucht: höchster Listeneinkaufspreis.', 'Sie rechnen von unten nach oben und gehen jeden Schritt zurück.', 'Frage in der Aufgabe: „Wie viel darf die Ware im Einkauf höchstens kosten?“', 'rueckwaerts'],
+    ['Differenz', 'Gegeben: Einkaufspreis, Verkaufspreis und die Prozentsätze dazwischen.', 'Gesucht: Gewinn in Euro (und Prozent).', 'Sie rechnen von oben bis zum Selbstkostenpreis und von unten bis zum Barverkaufspreis. Der Unterschied ist der Gewinn.', 'Frage in der Aufgabe: „Wie hoch ist der Gewinn?“', 'differenz']
   ];
   return (
     `<div class="ln-page">${backLink(lnBase(), 'Lernen')}<h1>Worum geht es bei der Kalkulation?</h1><p class="ln-sub">Handelskalkulation · Lernen</p>` +
-    `<div class="ln-box">Ein Händler kauft Ware ein und verkauft sie weiter. Er darf nicht einfach den Einkaufspreis verlangen. Aus dem Verkaufspreis muss er <b>alles bezahlen</b>, was nebenbei entsteht, und am Ende soll <b>etwas übrig bleiben</b>. Die Kalkulation rechnet aus, welcher Preis dafür nötig ist.</div>` +
-    `<div class="ln-four">${cards.map(c => `<div class="ln-c4"><b class="n">${c[0]}</b><span>${c[1]}</span><strong>${c[2]}</strong><small>${c[3]}</small></div>`).join('')}</div>` +
-    `<div class="ln-box"><b>Drei Richtungen:</b> Vorwärts (vom Einkauf zum Verkaufspreis), Rückwärts (vom Marktpreis zum höchsten Einkaufspreis), Differenz (wie viel bleibt übrig?).</div>` +
-    `<div class="ln-row"><a class="ln-btn" href="${lnBase()}/schema/vorwaerts">Weiter: Schema →</a></div><p class="ln-fehler">${fehlerHinweisHtml()}</p></div>`
+    `<div class="ln-box"><h2 class="ln-h2">Das Ziel</h2><p>Ein Händler kauft Ware ein und verkauft sie weiter. Er darf nicht einfach den Einkaufspreis verlangen. Aus dem Verkaufspreis muss er <b>alles bezahlen</b>, was nebenbei entsteht, und am Ende soll <b>etwas übrig bleiben</b>. Die Kalkulation rechnet aus, welcher Preis dafür nötig ist. Dafür gibt es ein festes Schema mit 16 Zeilen, immer in derselben Reihenfolge.</p></div>` +
+    `<h2 class="ln-h2 o">Die vier Stufen</h2><div class="ln-stufen">${stufen.map(c => `<div class="ln-box ln-st"><div class="hd"><b class="n">${c[0]}</b><span class="q">${c[2]}</span></div><p>${c[3]}</p><p class="erg">Ergebnis der Stufe: <b>${c[1]}</b></p></div>`).join('')}</div>` +
+    `<div class="ln-box"><h2 class="ln-h2">So lesen Sie die Tabelle</h2><div class="ln-lg">` +
+    `<div class="lr e"><span class="s">=</span><span><b>Ergebnis</b><small>Summe der Zeilen darüber, zum Beispiel Bezugspreis oder Selbstkostenpreis. Diese Zeilen sind fett.</small></span></div>` +
+    `<div class="lr p"><span class="s">+</span><span><b>Zuschlag</b><small>Wird dazugerechnet, zum Beispiel Bezugskosten, Handlungskosten, Gewinn.</small></span></div>` +
+    `<div class="lr m"><span class="s">−</span><span><b>Abzug</b><small>Wird abgezogen, zum Beispiel Liefererrabatt und Liefererskonto.</small></span></div></div>` +
+    `<p>Die Prozentspalten arbeiten wie in den Übungen: Jede Rechenkette hat ihre eigene Spalte, der Ausgangswert steht oben mit 100. Ein Prozentsatz bezieht sich immer auf die Zeile, die in seiner Spalte 100 % ist. Welche das ist, sehen Sie, wenn Sie eine Zeile im Schema antippen.</p>` +
+    `<p>Die Vertreterprovision (VP) kommt nicht in jeder Aufgabe vor. Steht sie nicht in der Aufgabe, lassen Sie die Zeile leer.</p></div>` +
+    `<h2 class="ln-h2 o">Die drei Richtungen</h2><div class="ln-three">${rich.map(r => `<div class="ln-box ln-rc"><h3>${r[0]}</h3><p>${r[1]}</p><p>${r[2]}</p><p>${r[3]}</p><p class="fr">${r[4]}</p><a class="ln-btn" href="${lnBase()}/schema/${r[5]}" data-ln="go">Zum Schema ${r[0]} →</a></div>`).join('')}</div>` +
+    `<div class="ln-box"><h2 class="ln-h2">Woran erkenne ich die Richtung?</h2><div class="ln-tw"><table class="ln-t ln-sig"><thead><tr><th class="l">Steht in der Aufgabe</th><th class="l">Richtung</th></tr></thead><tbody>` +
+    `<tr><td class="l">Gesucht ist der Listenverkaufspreis (Angebotspreis)</td><td class="l">Vorwärts</td></tr>` +
+    `<tr><td class="l">Der Markt zahlt einen festen Preis, gesucht ist der höchste Einkaufspreis</td><td class="l">Rückwärts</td></tr>` +
+    `<tr><td class="l">Einkaufs- und Verkaufspreis sind gegeben, gesucht ist der Gewinn</td><td class="l">Differenz</td></tr></tbody></table></div></div>` +
+    `<div class="ln-row"><a class="ln-btn" href="${lnBase()}/schema/vorwaerts" data-ln="go">Weiter: Schema →</a></div><p class="ln-fehler">${fehlerHinweisHtml()}</p></div>`
   );
 }
 
 /* ---------- Kennzahlen ---------- */
 const lnV1 = LN_BSP.vorwaerts[0], lnR1 = LN_BSP.rueckwaerts[0], lnD1 = LN_BSP.differenz[0], lnD2 = LN_BSP.differenz[1];
-const lnPdfLinks = `<a href="${LN_PDF.hell}" target="_blank" rel="noopener">Formelblatt als PDF</a>`;
+const lnPdfLinks = `<a href="#ln-pdf" data-ln="pdf">Formelblatt als PDF (Hell oder Dunkel)</a>`;
 const LN_KZ = [
   {
     slug: 'durchschnittliche-handelsspanne', name: 'Durchschnittliche Handelsspanne', kind: 'dp', an: 'WV', bn: 'WE', basen: 'Warenverkauf (WV)',
@@ -461,7 +481,10 @@ function lnKennzahlenHtml(open) {
   }).join('');
   return (
     `<div class="ln-page">${backLink(lnBase(), 'Lernen')}<h1>Kennzahlen</h1><p class="ln-sub">Sieben Kennzahlen von A bis Z. Tippen Sie eine an, dann sehen Sie die Erklärung.</p>` +
-    `<div class="ln-box ln-pdf"><b>Alle Formeln als PDF</b><div class="ln-pdfr"><span>Hell (weiß, zum Ansehen, Drucken und Speichern)</span><a href="${LN_PDF.hell}" target="_blank" rel="noopener">Ansehen oder drucken</a><a href="${LN_PDF.hell}" download>Speichern</a></div><div class="ln-pdfr"><span>Dunkel (schwarz, zum Ansehen und Speichern)</span><a href="${LN_PDF.dunkel}" target="_blank" rel="noopener">Ansehen</a><a href="${LN_PDF.dunkel}" download>Speichern</a></div></div>` +
+    `<div class="ln-box ln-pdf" id="ln-pdf"><b>Alle Formeln als PDF</b><p>Wählen Sie die Version, die Sie öffnen möchten.</p><div class="ln-pdfs">` +
+    `<div class="ln-pdfc"><b>Hell</b><span>Weiß, zum Ansehen, Drucken und Speichern</span><div class="ln-pdfb"><a href="${LN_PDF.hell}" target="_blank" rel="noopener">Ansehen oder drucken</a><a href="${LN_PDF.hell}" download>Speichern</a></div></div>` +
+    `<div class="ln-pdfc"><b>Dunkel</b><span>Schwarz, zum Ansehen und Speichern</span><div class="ln-pdfb"><a href="${LN_PDF.dunkel}" target="_blank" rel="noopener">Ansehen</a><a href="${LN_PDF.dunkel}" download>Speichern</a></div></div></div>` +
+    `<button type="button" class="ln-back" id="ln-pdfback" data-ln="pdfback" hidden>↩ Zurück zur Kennzahl</button></div>` +
     `<div class="ln-accs">${items}</div><p class="ln-fehler">${fehlerHinweisHtml()}</p></div>`
   );
 }
@@ -526,6 +549,20 @@ document.addEventListener('click', ev => {
       c.classList.toggle('open', o);
       c.querySelector('.ln-ch').setAttribute('aria-expanded', o);
     });
+  } else if (a === 'pdf') {
+    ev.preventDefault();
+    lnState.backY = window.scrollY;
+    const box = $('ln-pdf');
+    if (box) {
+      $('ln-pdfback').hidden = false;
+      box.classList.remove('flash');
+      void box.offsetWidth;
+      box.classList.add('flash');
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } else if (a === 'pdfback') {
+    window.scrollTo({ top: lnState.backY || 0, behavior: 'smooth' });
+    $('ln-pdfback').hidden = true;
   } else if (a === 'bspopen') {
     lnState.bspOpen[t.dataset.form] = !lnState.bspOpen[t.dataset.form];
     $('ln-bsp').innerHTML = lnBspHtml(t.dataset.form);

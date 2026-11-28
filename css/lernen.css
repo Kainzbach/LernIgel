@@ -169,12 +169,10 @@ html:not([data-theme='dark']) .ln-pdfr a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
+  width: 30px;
   height: 32px;
   flex: none;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-  font-size: 23px;
+  font-size: 30px;
   font-weight: 800;
   line-height: 1;
 }
@@ -591,3 +589,42 @@ html[data-theme='dark'] .ln-t tr[data-k]:focus td {
     padding: 0 12px 14px;
   }
 }
+
+/* Zeilenstreifen nach Vorzeichen */
+.ln-t tr.s-e td:first-child { box-shadow: inset 5px 0 0 var(--ln-eq); }
+.ln-t tr.s-p td:first-child { box-shadow: inset 5px 0 0 var(--ln-plus); }
+.ln-t tr.s-m td:first-child { box-shadow: inset 5px 0 0 var(--ln-minus); }
+.ln-card.s-e { border-left: 5px solid var(--ln-eq); }
+.ln-card.s-p { border-left: 5px solid var(--ln-plus); }
+.ln-card.s-m { border-left: 5px solid var(--ln-minus); }
+/* PDF-Kasten */
+.ln-pdf p { margin: 0; color: var(--ln-muted); }
+.ln-pdfs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ln-pdfc { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border: 1px solid var(--ln-line); border-radius: 12px; background: var(--ln-soft); }
+.ln-pdfc span { color: var(--ln-muted); font-size: 0.9rem; }
+.ln-pdfb { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.ln-back { align-self: flex-start; font: inherit; font-weight: 700; color: var(--ln-acc); background: transparent; border: 1px solid var(--ln-acc); border-radius: 10px; padding: 8px 14px; cursor: pointer; }
+.ln-pdf.flash { animation: lnflash 1.6s ease; }
+@keyframes lnflash { 0%, 60% { box-shadow: 0 0 0 3px var(--ln-acc); } 100% { box-shadow: 0 0 0 0 transparent; } }
+/* Einführung */
+.ln-h2 { margin: 0 0 8px; font-size: 1.15rem; }
+.ln-h2.o { margin: 8px 0 -2px; }
+.ln-box p { margin: 0 0 10px; line-height: 1.6; }
+.ln-box p:last-child { margin-bottom: 0; }
+.ln-stufen { display: grid; gap: 12px; }
+.ln-st .hd { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; margin-bottom: 6px; }
+.ln-st .n { color: var(--ln-acc); font-size: 1.1rem; }
+.ln-st .q { color: var(--ln-muted); }
+.ln-st .erg { color: var(--ln-muted); }
+.ln-lg { display: grid; gap: 8px; margin-bottom: 12px; }
+.ln-lg .lr { display: flex; align-items: center; gap: 12px; padding: 6px 10px; background: var(--ln-soft); border-radius: 0 8px 8px 0; border-left: 5px solid var(--c); }
+.ln-lg .lr.e { --c: var(--ln-eq); } .ln-lg .lr.p { --c: var(--ln-plus); } .ln-lg .lr.m { --c: var(--ln-minus); }
+.ln-lg .s { font-size: 1.9rem; font-weight: 800; width: 30px; text-align: center; color: var(--c); line-height: 1; }
+.ln-lg small { display: block; color: var(--ln-muted); }
+.ln-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.ln-rc { display: flex; flex-direction: column; gap: 6px; }
+.ln-rc h3 { margin: 0; color: var(--ln-acc); }
+.ln-rc .fr { font-style: italic; }
+.ln-rc .ln-btn { margin-top: auto; align-self: flex-start; }
+.ln-sig td, .ln-sig th { white-space: normal; }
+@media (max-width: 900px) { .ln-three, .ln-pdfs { grid-template-columns: 1fr; } }

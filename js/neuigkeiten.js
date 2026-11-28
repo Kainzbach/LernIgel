@@ -5,6 +5,14 @@
 const NEU_KEY = 'ksk-lernigel-version';
 const NEUES = [
   {
+    v: '1.5.2',
+    punkte: [
+      'Die Einführung unter „Lernen“ erklärt jetzt ausführlicher: die vier Stufen mit allen Zeilen, wie man die Tabelle liest und die drei Richtungen (Vorwärts, Rückwärts, Differenz) mit Signalwörtern.',
+      'Die Vorzeichen (=, +, −) sind größer und stehen ohne Kreis. Zusätzlich hat jede Zeile einen farbigen Streifen.',
+      'Kennzahlen: Der Link „Formelblatt als PDF“ springt zum Kasten, in dem Sie Hell oder Dunkel wählen. „Zurück zur Kennzahl“ bringt Sie an die Stelle zurück.'
+    ]
+  },
+  {
     v: '1.5.1',
     punkte: [
       'Lernen: Die Beispieltabelle lässt sich am Handy nicht mehr seitlich verschieben, und die Euro-Beträge sind größer.',
