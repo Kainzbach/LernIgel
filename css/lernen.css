@@ -345,6 +345,7 @@ html[data-theme='dark'] .ln-t tr[data-k]:focus td {
 }
 .ln-ch .am {
   font-weight: 700;
+  font-size: 1.12rem;
   white-space: nowrap;
 }
 .ln-card.hl {
@@ -546,6 +547,29 @@ html[data-theme='dark'] .ln-t tr[data-k]:focus td {
 .ln-pdfr span {
   flex: 1 1 260px;
   color: var(--ln-muted);
+}
+@media (max-width: 700px) {
+  .ln-tw.static .ln-t {
+    min-width: 0;
+  }
+  .ln-tw.static .ln-t th,
+  .ln-tw.static .ln-t td {
+    padding: 6px 5px;
+    font-size: 0.85rem;
+  }
+  .ln-tw.static .ln-t td.am,
+  .ln-tw.static .ln-t th:last-child {
+    white-space: nowrap;
+  }
+  .ln-tw.static .ln-t th:nth-child(2),
+  .ln-tw.static .ln-t td:nth-child(2),
+  .ln-tw.static .ln-t th:nth-child(7),
+  .ln-tw.static .ln-t td:nth-child(7) {
+    display: none;
+  }
+  .ln-tw.static .ln-t td.vz {
+    width: 40px;
+  }
 }
 @media (max-width: 900px) {
   .ln-split,

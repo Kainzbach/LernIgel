@@ -1,5 +1,11 @@
 # Änderungen
 
+## 1.5.1 (2026-11-28)
+
+- Lernen: Die Beispieltabelle unter „Beispiele“ scrollt am Handy nicht mehr zur Seite (Spalte „Bezeichnung“ und „Gerechnet“ entfallen dort, Beträge stehen in einer Zeile)
+- Lernen: Die Euro-Beträge in den Zeilen am Handy sind größer
+- Lernen: Vorwärts Beispiel 2 und Differenz Beispiel 2 enthalten jetzt eine Vertreterprovision (5 %). Vorwärts Beispiel 2 hat dadurch neue Werte (Gewinnzuschlag 8 %, Listenverkaufspreis 612,94 €)
+
 ## 1.5.0 (2026-11-28)
 
 - Neu: Handelskalkulation › Lernen mit Einführung, Schema (vorwärts, rückwärts, Differenz) und Kennzahlen. Jede Zeile hat eine Erklärung (am PC beim Darüberfahren, am Handy per Tippen), dazu je zwei aufklappbare Beispiele mit allen Schritten und Tabelle

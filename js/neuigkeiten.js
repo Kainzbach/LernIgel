@@ -5,6 +5,13 @@
 const NEU_KEY = 'ksk-lernigel-version';
 const NEUES = [
   {
+    v: '1.5.1',
+    punkte: [
+      'Lernen: Die Beispieltabelle lässt sich am Handy nicht mehr seitlich verschieben, und die Euro-Beträge sind größer.',
+      'Je ein Vorwärts- und ein Differenz-Beispiel enthalten jetzt eine Vertreterprovision.'
+    ]
+  },
+  {
     v: '1.5.0',
     punkte: [
       'Neu: In der Handelskalkulation gibt es jetzt „Lernen“. Dort sehen Sie das Schema Zeile für Zeile, vorwärts, rückwärts und als Differenz. Zu jeder Zeile steht, was sie bedeutet und wie der Wert entsteht.',

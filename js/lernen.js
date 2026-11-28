@@ -137,8 +137,8 @@ const LN_BSP = {
   vorwaerts: [
     lnBuild('vorwaerts', { lep: 200, lr: 10, ls: 2, bzk: 12, hk: 25, g: 8, ks: 2, vp: 0, kr: 10 },
       'Die {{firma}} bezieht Motorenöl zu einem Listeneinkaufspreis von 200,00 €. Der Lieferant gewährt 10 % Liefererrabatt und 2 % Liefererskonto, die Bezugskosten betragen 12,00 €. Das Unternehmen rechnet mit 25 % Handlungskostenzuschlag und 8 % Gewinnzuschlag. Den Kunden werden 2 % Kundenskonto und 10 % Kundenrabatt gewährt. Gesucht ist der Listenverkaufspreis.'),
-    lnBuild('vorwaerts', { lep: 450, lr: 10, ls: 3, bzk: 25, hk: 20, g: 10, ks: 2, vp: 0, kr: 5 },
-      'Die {{firma}} bezieht Navigationsgeräte zu einem Listeneinkaufspreis von 450,00 €. Der Lieferant gewährt 10 % Liefererrabatt und 3 % Liefererskonto, die Bezugskosten betragen 25,00 €. Der Handlungskostenzuschlag beträgt 20 %, der Gewinnzuschlag 10 %. Den Kunden werden 2 % Kundenskonto und 5 % Kundenrabatt gewährt. Gesucht ist der Listenverkaufspreis.')
+    lnBuild('vorwaerts', { lep: 450, lr: 10, ls: 3, bzk: 25, hk: 20, g: 8, ks: 2, vp: 5, kr: 5 },
+      'Die {{firma}} bezieht Navigationsgeräte zu einem Listeneinkaufspreis von 450,00 €. Der Lieferant gewährt 10 % Liefererrabatt und 3 % Liefererskonto, die Bezugskosten betragen 25,00 €. Der Handlungskostenzuschlag beträgt 20 %, der Gewinnzuschlag 8 %. Den Kunden werden 2 % Kundenskonto, 5 % Vertreterprovision und 5 % Kundenrabatt gewährt. Gesucht ist der Listenverkaufspreis.')
   ],
   rueckwaerts: [
     lnBuild('rueckwaerts', { lvp: 2200, lr: 20, ls: 2, bzk: 28.8, hk: 20, g: 10, ks: 4, vp: 0, kr: 10 },
@@ -149,8 +149,8 @@ const LN_BSP = {
   differenz: [
     lnBuild('differenz', { lep: 1200, lr: 10, ls: 2, hk: 45, ks: 2, kr: 12, lvp: 2000 },
       'Die {{firma}} bezieht Reifensätze zu einem Listeneinkaufspreis von 1.200,00 €. Der Lieferant gewährt 10 % Liefererrabatt und 2 % Liefererskonto, der Handlungskostenzuschlag beträgt 45 %. Der Listenverkaufspreis soll 2.000,00 € sein, bei 12 % Kundenrabatt und 2 % Kundenskonto. Gesucht ist der Gewinn in Euro.'),
-    lnBuild('differenz', { lep: 250, lr: 20, ls: 3, bzk: 6, hk: 30, ks: 2, kr: 10, lvp: 340 },
-      'Ein Artikel kostet im Einkauf 250,00 € (Listenpreis). Der Lieferant gewährt 20 % Liefererrabatt und 3 % Liefererskonto, die Bezugskosten betragen 6,00 €. Der Handlungskostenzuschlag beträgt 30 %. Der Listenverkaufspreis liegt bei 340,00 €, mit 10 % Kundenrabatt und 2 % Kundenskonto. Gesucht ist der Gewinn in Euro.')
+    lnBuild('differenz', { lep: 250, lr: 20, ls: 3, bzk: 6, hk: 30, ks: 2, vp: 5, kr: 10, lvp: 340 },
+      'Ein Artikel kostet im Einkauf 250,00 € (Listenpreis). Der Lieferant gewährt 20 % Liefererrabatt und 3 % Liefererskonto, die Bezugskosten betragen 6,00 €. Der Handlungskostenzuschlag beträgt 30 %. Der Listenverkaufspreis liegt bei 340,00 €, mit 10 % Kundenrabatt, 2 % Kundenskonto und 5 % Vertreterprovision. Gesucht ist der Gewinn in Euro.')
   ]
 };
 const LN_FORM = {
