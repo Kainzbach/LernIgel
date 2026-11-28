@@ -5,6 +5,16 @@
 const NEU_KEY = 'ksk-lernigel-version';
 const NEUES = [
   {
+    v: '1.5.0',
+    punkte: [
+      'Neu: In der Handelskalkulation gibt es jetzt „Lernen“. Dort sehen Sie das Schema Zeile für Zeile, vorwärts, rückwärts und als Differenz. Zu jeder Zeile steht, was sie bedeutet und wie der Wert entsteht.',
+      'Zu jedem Schema gibt es zwei durchgerechnete Beispiele mit allen Schritten.',
+      'Die Kennzahlen (z. B. Kalkulationszuschlag, Handelsspanne) sind erklärt mit Formel, Beispielen und Probe.',
+      'Das Formelblatt gibt es als PDF zum Ansehen, Drucken und Speichern, in Hell und Dunkel.',
+      'Die Kennzahlen im Üben sind jetzt alphabetisch sortiert.'
+    ]
+  },
+  {
     v: '1.4.0',
     punkte: [
       'Neu: Der Knopf „Melden“ unten rechts gibt es auf jeder Seite. Damit melden Sie einen Fehler oder teilen einen Wunsch mit, per Mail, als GitHub-Issue oder als kopierten Text.',

@@ -33,6 +33,7 @@ const ICONS = {
   pct: '<path d="M18 5L6 19"/><circle cx="7.5" cy="7.5" r="2.3"/><circle cx="16.5" cy="16.5" r="2.3"/>',
   layers: '<path d="M12 4l8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4"/><path d="M4 16l8 4 8-4"/>',
   dots: '<circle cx="6" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="18" cy="12" r="1.3"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
   coin: '<circle cx="12" cy="12" r="8"/><path d="M9 10.5c0-1.2 1.3-2 3-2s3 .8 3 2-1.3 1.8-3 2-3 .8-3 2 1.3 2 3 2 3-.8 3-2"/>'
 };
 const tileHtml = o => {
@@ -303,9 +304,13 @@ function route() {
   }
   if (parts.length === 2) {
     showMenu(
-      `${backLink('#/ksk', 'Thema')}<div class="wm-box">${wordmark()}</div><h2>Handelskalkulation</h2><div class="tiles">${tileHtml({ href: HKU, icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`,
+      `${backLink('#/ksk', 'Thema')}<div class="wm-box">${wordmark()}</div><h2>Handelskalkulation</h2><div class="tiles">${tileHtml({ href: HKB + '/lernen', icon: 'bulb', label: 'Lernen' })}${tileHtml({ href: HKU, icon: 'book', label: 'Üben' })}${tileHtml({ soon: true, icon: 'check', label: 'Teste dich', tag: 'Bald' })}</div>`,
       true
     );
+    return;
+  }
+  if (parts[2] === 'lernen') {
+    showLernen(parts);
     return;
   }
   // ab hier gilt die bisherige Aufteilung (ksk / ueben / Bereich / Aufgabe) ohne die Themenebene

@@ -89,7 +89,18 @@ function melKontext() {
         }
       } else if (p[1] === 'handelskalkulation') {
         c.wo = 'Handelskalkulation';
-        if (p[2] === 'ueben') {
+        if (p[2] === 'lernen') {
+          c.wo += ' › Lernen';
+          const t = { einfuehrung: 'Einführung', schema: 'Schema', kennzahlen: 'Kennzahlen' }[p[3]];
+          if (t) c.wo += ' › ' + t;
+          if (p[3] === 'schema' && p[4]) {
+            c.wo += ' › ' + p[4];
+            if (typeof lnState !== 'undefined') c.eingaben = 'Beispiel ' + ((lnState.bsp[p[4]] || 0) + 1) + (lnState.bspOpen[p[4]] ? ' (offen)' : '') + (lnState.card ? '; Zeile ' + lnState.card : '');
+          } else if (p[3] === 'kennzahlen' && p[4]) {
+            c.wo += ' › ' + p[4];
+            if (typeof lnState !== 'undefined') c.eingaben = 'Beispiel ' + ((lnState.kzBsp[p[4]] || 0) + 1);
+          }
+        } else if (p[2] === 'ueben') {
           c.wo += ' › Üben';
           const ar = areaOf(p[3]);
           if (ar) c.wo += ' › ' + ar.name;

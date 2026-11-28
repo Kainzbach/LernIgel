@@ -4,13 +4,13 @@
    in gen_kz_a/diff/b/c/d/e.js. defineKz() wird von gen_bau.js vor den festen Aufgaben aufgerufen.
    ===================================================================== */
 const KZ_AREAS = [
-  { id: 'kz_zuschlag', kz: 'zuschlag', name: 'Kalkulationszuschlag' },
-  { id: 'kz_faktor', kz: 'faktor', name: 'Kalkulationsfaktor' },
-  { id: 'kz_spanne', kz: 'spanne', name: 'Handelsspanne' },
+  { id: 'kz_gvs', kz: 'spannegv', name: 'Durchschnittliche Handelsspanne' },
   { id: 'kz_gewinn', kz: 'gewinn', name: 'Gewinn in Prozent' },
-  { id: 'kz_hkz', kz: 'hkz', name: 'Handlungskostenzuschlag' },
   { id: 'kz_gwz', kz: 'gwz', name: 'Gewinnzuschlag' },
-  { id: 'kz_gvs', kz: 'spannegv', name: 'Durchschnittliche Handelsspanne' }
+  { id: 'kz_spanne', kz: 'spanne', name: 'Handelsspanne' },
+  { id: 'kz_hkz', kz: 'hkz', name: 'Handlungskostenzuschlag' },
+  { id: 'kz_faktor', kz: 'faktor', name: 'Kalkulationsfaktor' },
+  { id: 'kz_zuschlag', kz: 'zuschlag', name: 'Kalkulationszuschlag' }
 ];
 
 /* Die Abschnitte A–E liegen in gen_kz_a.js … gen_kz_e.js und tragen sich hier ein. */

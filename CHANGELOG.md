@@ -1,5 +1,14 @@
 # Änderungen
 
+## 1.5.0 (2026-11-28)
+
+- Neu: Handelskalkulation › Lernen mit Einführung, Schema (vorwärts, rückwärts, Differenz) und Kennzahlen. Jede Zeile hat eine Erklärung (am PC beim Darüberfahren, am Handy per Tippen), dazu je zwei aufklappbare Beispiele mit allen Schritten und Tabelle
+- Kennzahlen: Kalkulationszuschlag, Kalkulationsfaktor, Handelsspanne, Gewinn in Prozent, Handlungskostenzuschlag, Gewinnzuschlag und durchschnittliche Handelsspanne mit Formel, zwei Beispielen, Probe, Deutung und „Wofür nutzt man es?“
+- Formelblatt als PDF (hell und dunkel) zum Ansehen, Drucken und Speichern
+- Die Kennzahlen im Üben sind alphabetisch sortiert (Kennungen unverändert)
+- Melden erkennt die Lernen-Seiten (Seite, Beispiel, geöffnete Zeile)
+- Intern: Neue Dateien `js/lernen.js`, `css/lernen.css`, `assets/formelblatt-hell.pdf`, `assets/formelblatt-dunkel.pdf`
+
 ## 1.4.1 (2026-11-27)
 
 - Melden: Bei Kostenarten stehen in den Eingaben nur noch die beantworteten Beispiele (statt zehn Einträgen mit Strichen)
